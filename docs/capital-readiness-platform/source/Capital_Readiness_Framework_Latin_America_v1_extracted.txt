@@ -1,0 +1,1427 @@
+CAPITALREADINESSFRAMEWORK
+A pre-underwriting standard for private capital across Latin America
+Foundational Design Document · Version 1.0 · July 2026
+
+Purpose — Standardize how prepared a business is to enter institutional or private-capital review—without replacing underwriting, credit committees, legal opinions, valuation, or regulated decision-makers.
+
+Initial geography — Costa Rica, Panama, and El Salvador, designed for modular expansion across Latin America.
+
+Platform posture — The platform orchestrates data, documentation, diligence, matching, and workflow. It does not lend, custody funds, guarantee approval, or make a regulated credit decision.
+
+
+Prepared as a product, policy, and systems blueprint
+
+0  Document Control and Use
+Field
+Definition
+Document status
+Foundational design / policy blueprint; not a lending policy and not legal advice.
+Primary users
+Borrowers, lenders, private-credit funds, banks, family offices, legal/compliance partners, product teams, auditors, and regulators.
+Scoring object
+Readiness of the borrower and proposed financing package—not probability of default, expected loss, pricing, or approval.
+Decision ownership
+The lender/investor and its authorized committees retain all underwriting, suitability, pricing, legal, compliance, and funding decisions.
+Versioning
+Every score must identify framework version, module, evidence date, reviewer, overrides, and expiration date.
+Validation requirement
+Country counsel, regulated partners, tax specialists, and lender design partners must validate implementation before commercial reliance.
+
+Design boundary — A CRF certificate means “the opportunity is organized, evidenced, and reviewable.” It must never be marketed as “safe,” “approved,” “investment grade,” or equivalent to a regulated credit rating.
+
+  Contents
+Section
+Topic
+1
+Executive Summary
+2
+Research Synthesis: How Capital Providers Evaluate Borrowers
+3
+Framework Architecture
+4
+Capital Readiness Score Methodology
+5
+Detailed Scoring Categories
+6
+Financial Health Metric Library
+7
+Legal, Compliance, and Integrity Gates
+8
+Industry, Country, Currency, and Climate Context
+9
+Collateral and Security Readiness
+10
+Capital Purpose Modules
+11
+Documentation Standards by Business Type
+12
+Documentation Standards by Financing Type
+13
+Borrower and Lender Personas
+14
+Borrower Journey
+15
+Lender Journey
+16
+AI and Data Architecture
+17
+APIs and Third-Party Integrations
+18
+Governance, Auditability, and Model Risk
+19
+Latin America Regulatory Considerations
+20
+Tokenization Compatibility
+21
+Risks and Limitations
+22
+Implementation Roadmap
+A
+Appendix: Core Scorecard
+B
+Appendix: Evidence and Certification Rules
+C
+References
+
+
+1  Executive Summary
+The proposed Capital Readiness Framework (CRF) is a standardized pre-underwriting system that converts fragmented borrower information into a transparent, lender-readable readiness package. It is designed to improve the quality, speed, comparability, and auditability of opportunities entering private-capital review across Latin America.
+The CRF deliberately separates readiness from creditworthiness. A company may be highly organized yet economically weak; another may be economically attractive but operationally unprepared. Lenders still determine repayment probability, loss severity, pricing, structure, suitability, and approval. The CRF determines whether the opportunity is sufficiently complete, reliable, controlled, and explainable to deserve efficient review.
+The architecture combines globally recognized credit principles—cash-flow analysis, leverage and liquidity review, governance, legal diligence, KYC/KYB, beneficial ownership, collateral analysis, use-of-proceeds controls, ongoing monitoring, and model governance—with a proposed certification-style operating system.
+Recommended product output — Each assessment produces five artifacts: (1) a 0–100 Capital Readiness Score, (2) an Evidence Confidence grade, (3) an External Risk Context profile, (4) a red-flag and conditions register, and (5) a prioritized remediation plan.
+
+Output
+Meaning
+What it is not
+Capital Readiness Score
+Weighted assessment of controllable borrower and deal preparedness.
+A probability of default, credit rating, approval, or pricing recommendation.
+Evidence Confidence
+Strength, independence, freshness, and reconciliation quality of supporting evidence.
+A substitute for audit, appraisal, legal opinion, or registry confirmation.
+External Risk Context
+Country, industry, currency, political, inflation, supply-chain, and climate factors.
+A hidden penalty inside the readiness score.
+Red-Flag Register
+Material issues requiring rejection, escalation, remediation, or lender review.
+An automated adverse decision.
+Readiness Action Plan
+Specific work needed to reach the next readiness band.
+A promise of financing.
+
+Score band
+Designation
+Operational meaning
+90–100
+Institutional Ready
+Complete, reconciled, current, controlled, and largely independently verifiable; minimal readiness friction.
+75–89
+Capital Ready
+Suitable for lender review; remaining conditions are identifiable and manageable.
+60–74
+Conditionally Ready
+Reviewable only with defined conditions, missing evidence, or material remediation.
+40–59
+Developing
+Material gaps make efficient diligence difficult; borrower should complete a readiness sprint.
+0–39
+Not Ready
+Insufficient evidence, controls, legal clarity, or financial reporting for responsible capital introduction.
+
+2  Research Synthesis: How Capital Providers Evaluate Borrowers
+Across commercial banks, development finance institutions, private credit, venture debt, asset-based lending, revenue-based finance, family offices, fintech lenders, and credit-rating methodologies, the recurring analytical questions are remarkably consistent:
+Who is the borrower, who ultimately owns and controls it, and are the people trustworthy and competent?
+What is the primary source of repayment, and how resilient is it under downside conditions?
+What is the full debt burden, maturity profile, covenant burden, and liquidity position?
+Is the information reliable, timely, reconciled, and capable of ongoing reporting?
+Is the borrower legally able to enter the transaction, and can security or guarantees be enforced?
+What industry, country, currency, political, climate, and concentration risks can impair repayment?
+What is the secondary source of repayment or recovery if the operating case fails?
+Is the use of proceeds specific, economically rational, traceable, and aligned with repayment?
+Can the lender monitor performance, detect deterioration early, and exercise remedies?
+Global practice — Basel credit-risk principles emphasize a sound credit-granting process, credit administration, measurement, monitoring, and controls. FATF standards require risk-based customer due diligence and beneficial-ownership transparency. Asset-based and real-estate lending guidance demonstrates that collateral and transaction type require specialized underwriting modules. [R1–R6]
+
+Capital provider
+Typical analytical emphasis
+Implication for CRF
+Commercial bank
+Repayment capacity, leverage, collateral, covenants, policy compliance, relationship history, regulatory capital.
+Provide standardized financial schedules, debt map, compliance evidence, and monitoring package.
+Development bank / DFI / MDB
+Commercial viability plus development impact, governance, environmental and social risk, procurement/integrity, additionality.
+Add ESG/E&S screening, impact indicators, anti-corruption, and stakeholder-risk evidence.
+Private credit fund
+Downside protection, documentation, covenants, sponsor/management quality, cash conversion, recovery, speed.
+Emphasize downside case, covenant capacity, security perfection, and lender-grade data room.
+Venture debt
+Runway, recurring revenue, growth quality, investor support, next financing, IP, cash controls.
+Use startup module; avoid forcing EBITDA-based thresholds onto pre-profit firms.
+Asset-based lender
+Eligible collateral, advance rates, borrowing base, dilution, aging, controls, field exams.
+Use collateral sub-ledgers, eligibility rules, appraisal/verification, and frequent reporting.
+Revenue-based finance
+Bank/payment-processor data, revenue stability, unit economics, seasonality, platform concentration.
+Use high-frequency transaction data with clear consent and model-governance controls.
+Family office
+Principal trust, asset protection, strategic fit, bespoke structure, reputation, relationship.
+Combine institutional evidence with an executive narrative and transparent exceptions.
+Credit rating agency
+Business risk, financial risk, liquidity, leverage, coverage, management/governance, event risk, recovery.
+Borrow analytical structure but do not call CRF a rating or imply default probability.
+
+2.1  Comparison of Established Risk Frameworks
+Framework
+Core idea
+Strengths
+Weaknesses / CRF treatment
+Five Cs of Credit
+Character, Capacity, Capital, Collateral, Conditions.
+Simple, memorable, broadly understood.
+Too high-level for auditability; CRF converts each C into evidence-backed controls.
+CAMPARI
+Character, Ability, Margin, Purpose, Amount, Repayment, Insurance/security.
+Strong transaction and profitability orientation.
+Definitions vary; mixes lender economics with borrower risk. CRF separates readiness, lender return, and underwriting.
+PARSER
+Person, Amount, Repayment, Security, Expediency, Remuneration.
+Useful loan-officer discipline and transaction logic.
+Less globally standardized; limited compliance/data-governance depth.
+Basel credit principles
+Governance, granting, administration, monitoring, controls; standardized/IRB risk methods.
+Institutional rigor, comparability, model discipline, ongoing monitoring.
+Designed for bank risk/capital, not borrower certification. CRF adopts process discipline, not regulatory capital calculations.
+Rating-agency methodologies
+Business risk + financial risk + liquidity/governance/event/recovery modifiers.
+Forward-looking, comparable, sector-aware.
+Judgment-heavy and issuer/issue-specific; CRF must not mimic rating symbols or imply default likelihood.
+Fintech cash-flow underwriting
+High-frequency bank, card, platform, invoice, and behavioral data.
+Timely, useful for thin-file SMEs, reduces manual friction.
+Opaque models, bias, data drift, platform dependency. CRF requires consent, reason codes, and human oversight.
+Proposed CRF
+Evidence-backed maturity score + financing module + external-risk context.
+Transparent, modular, auditable, borrower-coaching friendly, integration ready.
+Must be validated, calibrated, governed, and never treated as automatic approval.
+
+3  Framework Architecture
+The CRF has six layers. Separating these layers avoids false precision and makes the system adaptable to different lenders, countries, and financing products.
+Layer
+Function
+Key output
+1. Eligibility & Integrity Gates
+Determine whether the borrower can enter the process responsibly.
+Pass, fail, or enhanced-review status.
+2. Core Readiness Score (80 points)
+Assess borrower-level financial, operational, legal, governance, and compliance readiness.
+Comparable core score across business and financing types.
+3. Financing Module (20 points)
+Assess purpose, structure, repayment logic, collateral/alternative support, and monitoring.
+Deal-specific module score.
+4. Evidence Confidence
+Assess source quality, independence, reconciliation, coverage, and freshness.
+Grade A–D and field-level provenance.
+5. External Risk Context
+Report industry, country, currency, political, inflation, supply-chain, and climate exposures.
+Context profile and mitigants—not a hidden score penalty.
+6. Red Flags, Conditions & Overrides
+Surface issues requiring human decisions and document exceptions.
+Auditable conditions register and reviewer sign-off.
+
+3.1  Eligibility and Integrity Gates
+Gate
+Minimum requirement
+Default treatment
+Legal existence
+Active legal entity; authority and signatories verified.
+Fail or suspend until verified.
+Beneficial ownership
+Natural-person UBOs and control chain identified and verified to applicable standards.
+Enhanced review or fail if unresolved.
+Sanctions / prohibited parties
+Screen borrower, UBOs, directors, guarantors, and material counterparties.
+Block and escalate; no automated clearance of potential matches.
+Material misrepresentation / suspected fraud
+Conflicting documents, manipulated statements, identity anomalies, fabricated contracts, or unexplained transactions investigated.
+Suspend; independent review.
+Consent and lawful data use
+Valid borrower authorization for data access, screening, sharing, and retention.
+No processing without lawful basis.
+Minimum core dataset
+Required identity, financial, debt, tax, legal, use-of-proceeds, and bank information available.
+Assessment may be “preliminary,” but no certification.
+Regulatory perimeter
+Platform role and lender/partner licensing path confirmed for the transaction and jurisdiction.
+Route to counsel/compliance; no transaction orchestration beyond permitted scope.
+
+3.2  Core and Module Separation
+Core score — Measures how institutionally prepared the business is regardless of lender: reliable reporting, repayment evidence, management, controls, legal organization, and compliance.
+
+Financing module — Measures whether this specific request is coherent: purpose, amount, sources and uses, structure, repayment schedule, downside case, collateral/guarantees, and monitoring package.
+
+External context — Measures conditions the borrower may not control. The score evaluates whether those risks are identified and mitigated; the raw country/industry risk remains a separate lender input.
+
+4  Capital Readiness Score Methodology
+Component
+Weight
+Why it matters
+A. Financial Information Quality
+15
+A lender cannot responsibly analyze what cannot be trusted, reconciled, or updated.
+B. Financial Capacity & Resilience
+20
+Primary repayment must be supported by cash flow, liquidity, margins, leverage, and downside resilience.
+C. Management & Governance
+12
+Execution quality, accountability, key-person risk, and decision controls shape repayment outcomes.
+D. Operations, Controls & Technology
+10
+Repeatable processes, internal controls, reporting cadence, data integrity, and continuity enable monitoring.
+E. Legal & Corporate Readiness
+13
+Authority, ownership, contracts, liabilities, licenses, litigation, and enforceability must be clear.
+F. Compliance, Integrity & ESG/E&S
+10
+AML/KYC, sanctions, anti-corruption, source of funds, and material E&S risks can block transactions.
+Core subtotal
+80
+Stable, comparable borrower-readiness layer.
+G. Capital Request, Structure & Repayment
+14
+The request must be specific, proportionate, traceable, and supported by a repayment and downside plan.
+H. Collateral / Alternative Support & Monitoring
+6
+Security, guarantees, controls, or other structural support must be documented where relevant.
+Financing module subtotal
+20
+Product- and transaction-specific readiness layer.
+TOTAL
+100
+Capital Readiness Score.
+
+4.1  Control Maturity Scale
+Level
+Definition
+Typical evidence
+0 — Absent
+No process, document, owner, or reliable evidence.
+Missing or contradicted information.
+1 — Informal
+Some information exists, but it is ad hoc, incomplete, stale, or person-dependent.
+Self-declaration, spreadsheets without reconciliation, unsigned drafts.
+2 — Documented
+Policy/process/document exists but is inconsistently implemented or only partially evidenced.
+Approved procedures, partial records, limited history.
+3 — Implemented
+Process operates consistently and produces current, reconcilable evidence.
+Regular reporting, controls, approvals, source-system exports.
+4 — Institutional
+Process is monitored, tested, independently verified where appropriate, and resilient to personnel changes.
+Audit/review, registry verification, independent appraisal, tested BCP, control logs.
+
+Weighted control formula:
+Control contribution = Control weight × (Maturity level ÷ 4)
+Category and total scores must be calculated deterministically. Narrative AI may explain results, but it may not alter formulas, thresholds, evidence status, caps, or overrides.
+4.2  Evidence Confidence Grade
+Grade
+Definition
+Use
+A — High
+Material fields are source-verified or independently verified; financials reconcile; evidence is current and complete.
+Eligible for full certification, subject to gates and lender review.
+B — Good
+Most material fields are verified; limited non-critical reliance on borrower-provided evidence.
+Certification allowed with disclosed conditions.
+C — Limited
+Material gaps, stale information, weak reconciliation, or heavy reliance on self-declaration.
+Preliminary/conditional score only.
+D — Insufficient
+Evidence cannot support reliable assessment or contains unresolved contradictions.
+No certification; remediation required.
+
+4.3  Caps and Overrides
+Condition
+Recommended cap / action
+Unresolved identity, UBO, sanctions, fraud, or legal-existence concern
+No score publication; suspend and escalate.
+Financial statements do not reconcile to bank/tax/source systems
+Maximum status: Developing (59), unless clearly immaterial and disclosed.
+Material debt, liens, litigation, tax arrears, or guarantees not disclosed
+No certification until independently resolved.
+No credible source of repayment or repayment schedule
+Maximum score: 59, regardless of documentation quality.
+Missing essential loan-type evidence
+Module-specific cap; disclose exact missing item and impact.
+Reviewer override
+Allowed only with reason, supporting evidence, named approver, timestamp, and expiry. Never silently overwrite system result.
+
+5  Detailed Scoring Categories
+A. Financial Information Quality — 15 points
+Subcategory
+Assessment focus
+Historical financial statements
+Availability, accounting basis, consistency, comparative periods, notes, and auditor/accountant involvement.
+Management accounts
+Monthly or quarterly P&L, balance sheet, and cash flow with close calendar and variance explanations.
+Reconciliation
+Financial statements reconcile to general ledger, bank statements, tax filings, receivables/payables, inventory, and debt schedules.
+Forecast quality
+Integrated assumptions, monthly cash forecast, base/downside/upside cases, and actual-vs-budget tracking.
+Data lineage
+Source system, owner, extraction date, transformations, and approvals are recorded.
+
+B. Financial Capacity & Resilience — 20 points
+Subcategory
+Assessment focus
+Primary repayment capacity
+Historical and projected cash available for debt service; DSCR/fixed-charge coverage where appropriate.
+Liquidity
+Cash, current/quick ratios, working-capital needs, revolver availability, and minimum cash.
+Profitability and margin quality
+Gross margin, EBITDA/operating margin, net margin, normalization, trend, and volatility.
+Leverage and debt burden
+Debt/EBITDA or relevant alternative, debt/equity, interest coverage, maturity wall, covenant headroom.
+Revenue quality
+Stability, recurrence, seasonality, churn, contract duration, customer and channel concentration.
+Stress resilience
+Sensitivity to revenue decline, margin compression, FX, rates, inflation, working-capital stretch, and project delay.
+
+C. Management & Governance — 12 points
+Subcategory
+Assessment focus
+Leadership capability
+Relevant track record, execution history, domain expertise, integrity, and capacity.
+Governance structure
+Board/advisory oversight, reserved matters, delegation of authority, conflicts policy, and minutes.
+Key-person and succession risk
+Role clarity, backups, retention, insurance where relevant, and documented succession.
+Ownership alignment
+Cap table clarity, shareholder agreements, related parties, sponsor support, and disputes.
+Decision discipline
+Budget approval, major-contract approval, borrowing authority, and exception escalation.
+
+D. Operations, Controls & Technology — 10 points
+Subcategory
+Assessment focus
+Operating maturity
+Documented core processes, KPIs, ownership, service levels, and exception handling.
+Internal controls
+Segregation of duties, approval limits, cash controls, procurement, payroll, inventory, and fraud controls.
+Reporting cadence
+Timely operational and financial reporting capable of lender monitoring.
+Technology and data maturity
+Reliable systems, access controls, backups, change management, integrations, and data quality.
+Business continuity
+Critical dependencies, recovery plans, insurance, alternative suppliers/sites, and tested response.
+
+E. Legal & Corporate Readiness — 13 points
+Subcategory
+Assessment focus
+Entity and authority
+Formation, good standing, bylaws, registers, powers, authorized signatories, and approvals.
+Ownership and group structure
+Complete legal/entity chart, UBO chain, subsidiaries, affiliates, and related parties.
+Debt, liens, guarantees
+Complete obligations, security interests, negative pledges, intercompany debt, and contingent liabilities.
+Contracts
+Material customer, supplier, lease, financing, employment, technology, and partnership agreements.
+Licenses and regulatory standing
+Licenses, permits, registrations, inspections, and compliance status.
+Litigation and claims
+Pending/threatened disputes, judgments, labor/tax matters, and quantified exposure.
+Intellectual property
+Ownership, registrations, assignments, open-source/software risks, and license dependencies.
+
+F. Compliance, Integrity & ESG/E&S — 10 points
+Subcategory
+Assessment focus
+KYC/KYB and UBO
+Identity, legal existence, control, ownership verification, and refresh process.
+AML/sanctions/PEP
+Risk-based screening, match resolution, escalation, and recordkeeping.
+Source of funds/wealth
+Economic origin, bank trail, investor/sponsor funds, and plausibility checks.
+Anti-corruption
+Code/policy, gifts, third parties, government touchpoints, beneficial owners, and investigations.
+Tax and labor compliance
+Filings, payments, arrears, disputes, social-security obligations, and remediation.
+ESG/E&S materiality
+Sector-appropriate environmental, social, labor, community, climate, and governance risks.
+
+G. Capital Request, Structure & Repayment — 14 points
+Subcategory
+Assessment focus
+Purpose and amount
+Specific business purpose, evidence-based amount, timing, and responsible use.
+Sources and uses
+Complete funding plan, equity contribution, fees, taxes, contingency, and draw schedule.
+Repayment structure
+Amortization, interest, maturity, grace periods, balloon, cash sweep, and cash-flow alignment.
+Downside and exit
+Stress case, refinance/exit assumptions, maturity risk, and corrective actions.
+Covenant/reporting readiness
+Capacity to produce required information and comply with proposed controls.
+Stakeholder alignment
+Sponsor, shareholders, guarantors, existing lenders, and required consents aligned.
+
+H. Collateral / Alternative Support & Monitoring — 6 points
+Subcategory
+Assessment focus
+Asset identification and ownership
+Borrower owns or controls pledged assets; serial/title/registry details available.
+Valuation and eligibility
+Independent or supportable value, aging/condition, advance-rate inputs, concentration, and exclusions.
+Perfection/enforceability readiness
+Registry searches, priority, consents, insurance, custody/control, and local counsel path.
+Monitoring
+Borrowing base, appraisals, inspections, reporting frequency, dominion/control, and covenant triggers.
+Alternative support
+Guarantees, sponsor support, reserve accounts, insurance, contracts, or other structural mitigants where collateral is not central.
+
+6  Financial Health Metric Library
+No universal threshold rule — Ratios must be interpreted by industry, business model, accounting quality, currency, seasonality, maturity, and financing type. The CRF may use configurable lender benchmarks, but it should not pretend that one DSCR, current ratio, or leverage threshold is universally correct.
+
+Metric
+Definition
+Why it matters / cautions
+Debt Service Coverage Ratio (DSCR)
+Cash flow available for debt service ÷ scheduled principal and interest.
+Measures capacity to pay debt from operating cash generation. Test historical, projected, and downside DSCR; define numerator precisely.
+Fixed-Charge Coverage
+Earnings/cash flow available for fixed charges ÷ interest, principal, leases, and other fixed obligations.
+Useful where lease or other fixed-payment obligations are material.
+Current Ratio
+Current assets ÷ current liabilities.
+Broad short-term liquidity indicator; may overstate liquidity if inventory or receivables are weak.
+Quick Ratio
+Cash + marketable securities + eligible receivables ÷ current liabilities.
+Stricter liquidity test; still requires receivables-quality analysis.
+EBITDA
+Earnings before interest, tax, depreciation, and amortization.
+Operating earnings proxy, not cash flow. Normalize owner pay and one-offs; account for capex, taxes, working capital, and leases.
+Operating Cash Flow
+Cash generated by operations after working-capital movements.
+Closer to actual debt-servicing capacity than accounting earnings; analyze volatility and conversion from EBITDA.
+Free Cash Flow
+Operating cash flow less maintenance/required capital expenditure.
+Indicates cash available after sustaining operations; definitions must be transparent.
+Burn Rate
+Average net cash consumed per month.
+Critical for pre-profit companies; must be paired with runway and financing milestones.
+Cash Runway
+Unrestricted cash ÷ monthly net burn.
+Shows time to cash exhaustion under current and downside conditions.
+Working Capital
+Current assets less current liabilities; also analyze operating working capital.
+Identifies short-term funding needs and whether growth consumes or releases cash.
+Cash Conversion Cycle
+Days inventory + days sales outstanding − days payables outstanding.
+Shows how long cash is tied up in operations and where financing pressure arises.
+Gross Margin
+Revenue less direct cost of goods/services ÷ revenue.
+Measures unit-level economics and pricing/cost resilience.
+EBITDA / Operating Margin
+EBITDA or operating profit ÷ revenue.
+Indicates operating profitability and scale efficiency; normalize carefully.
+Net Margin
+Net income ÷ revenue.
+Captures full cost structure but can be distorted by financing, tax, and non-recurring items.
+Revenue Stability
+Trend, variance, seasonality, recurrence, contract length, churn, and cohort quality.
+Stable, diversified revenue generally supports more reliable repayment forecasts.
+Customer Concentration
+Top customer / top five / top ten share of revenue or receivables.
+A single loss or delayed payment can impair liquidity and repayment.
+Channel / Platform Concentration
+Share of revenue dependent on a marketplace, processor, distributor, or referral source.
+Creates policy, pricing, suspension, and data-access dependency.
+Debt / EBITDA
+Gross or net debt ÷ normalized EBITDA.
+Common leverage indicator for mature businesses; unsuitable when EBITDA is negative or structurally volatile.
+Debt / Equity
+Total debt ÷ equity.
+Indicates creditor-versus-owner financing; book equity quality and revaluation matter.
+Interest Coverage
+EBIT or EBITDA ÷ cash interest expense.
+Measures capacity to pay interest; ignores principal and may overstate cash capacity.
+Loan-to-Value (LTV)
+Loan balance ÷ supportable collateral value.
+Recovery/structure metric, not a substitute for cash-flow repayment analysis.
+Receivables Dilution
+Credits, returns, disputes, offsets, and write-offs ÷ gross receivables.
+Critical in ABL because nominal receivables may not be collectible at face value.
+
+6.1  Required Financial Analyses
+At least 24–36 months of historical monthly performance where available, plus year-to-date and comparable period.
+Integrated P&L, balance sheet, and cash-flow forecast with assumptions and actual-versus-budget tracking.
+Base, downside, and severe-but-plausible stress cases.
+Debt schedule including lender, original amount, balance, currency, rate, maturity, amortization, collateral, covenants, and arrears.
+Customer/revenue concentration, receivables aging, payables aging, inventory aging where relevant.
+Normalized earnings bridge showing owner compensation, related-party transactions, one-offs, and non-recurring items.
+Currency mismatch and rate sensitivity for debt and major cash flows.
+Working-capital and cash-conversion analysis tied to the requested financing amount.
+7  Legal, Compliance, and Integrity Readiness
+Domain
+Minimum evidence
+Enhanced review triggers
+Corporate structure
+Formation documents, good standing, bylaws, registers, board/shareholder approvals, entity chart.
+Complex offshore chains, nominee arrangements, dormant entities, unexplained ownership changes.
+Beneficial ownership
+Natural-person UBOs, control persons, IDs, addresses, ownership percentages, verification source.
+Trusts, foundations, bearer-like arrangements, high-risk jurisdictions, conflicting registries.
+Existing debt and liens
+Debt schedule, agreements, payoff statements, registry/lien searches, guarantees, negative pledges.
+Undisclosed obligations, intercreditor conflicts, tax liens, cross-defaults.
+Litigation and claims
+Counsel letter or management schedule, filings, judgments, settlement obligations.
+Fraud, corruption, insolvency, environmental, labor, tax, or ownership disputes.
+Licenses and regulation
+Operating permits, sector licenses, registrations, inspections, renewals.
+Expired/conditional licenses, regulator investigation, activity outside licensed scope.
+Contracts
+Material customer, supplier, lease, employment, IP, partnership, financing, and government contracts.
+Change-of-control, assignment restrictions, termination rights, concentration, related parties.
+AML/KYC/sanctions
+Risk assessment, screening results, match disposition, PEP review, source-of-funds trail.
+Potential sanctions match, unexplained source of funds, adverse media, high-risk government exposure.
+Anti-corruption
+Policy, training, gift/expense controls, third-party diligence, government-touchpoint map.
+Agents paid success fees, cash-heavy procurement, public contracts, politically exposed owners.
+ESG/E&S
+Materiality screen, permits, labor/safety records, climate/location risk, community impacts.
+Land acquisition, resettlement, hazardous activities, protected areas, high emissions, labor disputes.
+
+8  Industry, Country, Currency, and Climate Context
+The CRF should distinguish borrower preparation from exogenous risk. A high-risk sector or country may require more structure, pricing, covenants, insurance, or lender expertise, but it should not automatically imply that the borrower is poorly prepared.
+Risk
+Assessment
+Borrower-controlled readiness evidence
+Industry
+Cyclicality, disruption, regulation, commodity exposure, barriers, failure rates, margin structure.
+Market analysis, KPI benchmarks, diversification, contracts, contingency plan.
+Country / political
+Rule of law, enforceability, capital controls, policy volatility, security, sovereign stress.
+Local counsel, permitted structure, political-risk insurance options, diversified cash flows.
+Currency
+Revenue/debt currency mismatch, convertibility, devaluation, hedging cost.
+Natural hedge, contract indexation, reserves, hedging policy, downside sensitivity.
+Inflation / rates
+Input-cost pass-through, wage pressure, floating-rate debt, refinancing.
+Pricing mechanisms, supplier terms, fixed-rate options, rate caps, stress testing.
+Supply chain
+Supplier concentration, logistics, customs, lead times, geopolitical exposure.
+Second sources, safety stock, contracts, route alternatives, inventory controls.
+Climate / disaster
+Flood, drought, wildfire, storm, heat, water, transition and insurance risk.
+Site assessment, insurance, adaptation, continuity, resilience capex.
+Concentration
+Customer, supplier, geography, product, channel, key person.
+Limits, diversification roadmap, contractual protections, reserves.
+
+8.1  External Risk Context Scale
+Level
+Meaning
+Recommended platform behavior
+1 — Low
+Limited external risk relative to peers.
+Standard module and monitoring.
+2 — Moderate
+Manageable risk with normal mitigants.
+Disclose factors and mitigants.
+3 — Elevated
+Material volatility or enforceability risk.
+Enhanced stress testing, specialist lender matching, counsel review.
+4 — High
+Multiple material external risks or weak mitigants.
+Enhanced diligence; consider insurance, reserves, tighter structure.
+5 — Severe
+Risk may be outside platform/lender appetite or legally difficult to manage.
+Escalate; no automated match or implied approval.
+
+9  Collateral and Security Readiness
+Collateral
+Core diligence
+Monitoring / haircut drivers
+Real estate
+Title, survey, zoning, permits, appraisal, environmental, taxes, leases, encumbrances, insurance, foreclosure path.
+Location, liquidity, completion, tenancy, legal priority, appraisal age, disaster risk.
+Equipment
+Ownership, serial numbers, condition, age, maintenance, appraised orderly-liquidation value, location, insurance.
+Obsolescence, mobility, specialized use, resale market, maintenance.
+Receivables
+Invoice validity, debtor credit, aging, disputes, offsets, dilution, concentration, assignment rights, tax status.
+Eligibility rules, debtor confirmations, lockbox/dominion, frequent borrowing base.
+Inventory
+Ownership, location, type, age, turnover, marketability, valuation, storage, insurance.
+Perishability, obsolescence, seasonality, work-in-process, liquidation costs.
+Intellectual property
+Ownership chain, registrations, licenses, infringement, revenue linkage, valuation method.
+High valuation uncertainty, dependency on team/platform, legal enforceability.
+Guarantees
+Guarantor identity, assets, liabilities, legal capacity, waivers, corporate benefit, enforceability.
+Guarantor liquidity, competing claims, jurisdiction, concentration, revocation risk.
+Cash / reserve accounts
+Account ownership, control agreement, permitted investments, release conditions.
+Bank risk, set-off, currency, replenishment mechanics.
+
+Collateral principle — Collateral is normally a secondary repayment source. The CRF should never allow an attractive appraisal to conceal weak ownership, weak enforceability, poor monitoring, or an implausible primary repayment source.
+
+10  Capital Purpose Modules
+Purpose
+Primary questions
+Required module evidence
+Working capital
+Cash conversion cycle, inventory/receivable build, seasonality, borrowing-base logic, short-term repayment source.
+Monthly cash forecast; AR/AP/inventory aging; purchase orders/contracts; bank data; draw/repayment schedule.
+Expansion / growth
+Incremental revenue, capacity, hiring, customer demand, ramp time, break-even, execution risk.
+Business case, milestones, budget, contracts/pipeline, sensitivity, management capacity.
+Equipment
+Asset specification, vendor, delivery, installation, productivity, useful life, resale value.
+Quotes, purchase contract, appraisal, insurance, maintenance, permits, ROI analysis.
+Construction / development
+Land/title, permits, design, contractor, budget, contingency, draw controls, pre-sales/leases, completion and takeout.
+Appraisal, feasibility, plans, permits, GMP/contracts, quantity surveyor, sources/uses, schedule, draw package.
+Acquisition
+Target quality, purchase agreement, valuation, synergies, integration, leverage, working capital, seller exposure.
+LOI/SPA, quality of earnings, diligence reports, integration plan, pro forma, sources/uses, approvals.
+Refinancing
+Existing debt purpose, payment history, maturity, covenant issues, cash-out, improvement in structure.
+Existing agreements, statements, payoff letters, lien releases, debt service comparison, use of any cash-out.
+Venture debt
+Runway, burn, recurring revenue, retention, investor support, milestones, next equity raise, IP.
+Cap table, investor rights, cohort/MRR data, runway model, board materials, financing history, IP chain.
+Revenue-based financing
+Revenue quality, processor/bank data, gross margin, seasonality, concentration, remittance burden.
+API or source data, cohort/channel analysis, refunds/chargebacks, remittance sensitivity.
+
+11  Required Documentation by Business Type
+Universal core file — Formation, bylaws/operating agreement, good standing, registers, authority resolutions; Ownership/UBO chart and IDs; related-party schedule; 24–36 months financials, YTD management accounts, bank statements, tax filings; Debt/liens/guarantees schedule and agreements; AR/AP aging, customer/supplier concentration, material contracts; Use-of-proceeds and integrated forecast; base/downside cases; Licenses, litigation, insurance, AML/KYB and compliance evidence.
+
+Business type
+Additional documents / emphasis
+Established SME / family business
+Owner compensation normalization; related parties; informal agreements; succession; tax/social-security; customer concentration; personal/business cash separation.
+Startup / pre-profit
+Cap table; financing history; burn/runway; board approvals; investor support; product/IP; cohort/pipeline; next financing milestones; founder vesting.
+SaaS / subscription
+MRR/ARR bridge; churn/retention; cohorts; bookings/billings; deferred revenue; CAC/LTV methodology; platform/cloud dependency; security/privacy.
+Commerce / e-commerce
+Processor and marketplace data; returns/chargebacks; SKU and channel concentration; inventory aging; supplier terms; fulfillment performance.
+Manufacturing / logistics / asset-heavy
+Fixed-asset register; maintenance; capacity utilization; safety/environmental permits; supplier concentration; inventory; equipment appraisal.
+Professional services
+Backlog; utilization; bill rates; key-person/client concentration; WIP; receivables; assignment/contract rights; employee/contractor classification.
+Exporter / importer
+Customs records; FX exposure; trade finance; Incoterms; country/customer risk; logistics; hedging; letters of credit; sanctions screening.
+Agriculture / food
+Land/use rights; crop/livestock data; water; seasonality; weather; biosecurity; off-take contracts; insurance; environmental/social risks.
+Real estate owner / developer / project SPV
+Title, appraisal, zoning, permits, plans, budget, contractors, leases/pre-sales, sponsor equity, draw controls, environmental, takeout/exit.
+
+12  Required Documentation by Financing Type
+Financing type
+Module documentation
+Working-capital line
+13-week cash flow; borrowing need; AR/AP/inventory aging; borrowing base; seasonal cycle; order book; bank/processor history.
+Term loan for expansion
+Project budget; milestones; forecast; contracts/pipeline; break-even and downside; equity contribution; approvals.
+Equipment finance
+Vendor quote/invoice; asset details; useful life; installation; insurance; appraisal; ownership; maintenance; permits.
+ABL / receivables
+Detailed receivables tape; eligibility; dilution; debtor concentration; confirmations; assignment rights; lockbox/control; field exam readiness.
+Inventory finance
+SKU-level inventory; aging; turnover; valuation; location; ownership; warehouse controls; inspection; insurance.
+Venture debt
+Cap table; financing docs; board materials; runway; MRR/ARR/cohorts; burn; investor support; milestones; IP; warrants if proposed.
+Construction / project finance
+Land/title; appraisal; feasibility; permits; plans; construction contracts; budget/contingency; schedule; draw controls; pre-sales/leases; completion/takeout.
+Acquisition finance
+LOI/SPA; target financials; quality of earnings; diligence; valuation; integration; sources/uses; pro forma; approvals; seller financing.
+Refinancing
+Existing loan agreements/statements; payoff; payment history; covenant status; lien releases; comparison; cash-out use; maturity plan.
+Revenue-based finance
+Source bank/processor data; refunds/chargebacks; recurring/repeat revenue; seasonality; concentration; remittance model and stress test.
+Real-estate bridge
+Title/appraisal; leases; rent roll; NOI; capex plan; exit/takeout; sponsor equity; insurance; environmental; existing liens.
+
+13  Borrower and Lender Personas
+13.1 Borrower Personas
+Persona
+Profile
+CRF priorities
+Formalizing family-owned SME
+Profitable, relationship-driven, weak reporting and governance.
+Separate personal/company cash, reconcile financials, document ownership and related parties, succession and approvals.
+Growth-stage SaaS company
+Strong growth, negative EBITDA, venture-backed, recurring revenue.
+Runway, retention/cohorts, investor support, IP, security/privacy, milestones and next raise.
+Exporter with FX exposure
+Stable contracts but currency and customer concentration risk.
+Contract quality, natural hedges, stress tests, trade/compliance evidence, receivables quality.
+Asset-heavy operator
+Equipment/inventory-rich, cash conversion pressure.
+Asset register, maintenance, appraisal, working-capital controls, safety/environmental permits.
+Real-estate developer / SPV
+Project-based cash flows, construction and permit dependencies.
+Title, permits, budget, contingency, sponsor equity, draw controls, pre-sales/leases, completion/takeout.
+Acquisition entrepreneur
+Good thesis, limited standalone balance sheet.
+Target diligence, quality of earnings, integration, sponsor equity, seller alignment, downside plan.
+
+13.2 Lender Personas
+Persona
+Profile
+What CRF should deliver
+Relationship bank
+Policy-driven, regulated, values deposits/history/collateral and reporting.
+Standardized core file, policy mapping, local compliance and security perfection.
+Private credit fund
+Flexible but downside-focused; speed, covenants, control, returns.
+Downside model, documentation, security, covenant/reporting capability, sponsor alignment.
+Asset-based lender
+Lends against eligible assets with frequent monitoring.
+Data tapes, borrowing-base integrity, field exam, dominion and collateral controls.
+Venture debt provider
+Focuses on runway, recurring revenue, investors, enterprise value, milestones.
+Startup module, cap table, investor support, cash controls, IP.
+Family office
+Bespoke mandate, reputation and principal trust, flexible structure.
+Clear narrative plus institutional evidence, conflicts, governance, principal alignment.
+DFI / MDB / impact investor
+Commercial return plus development impact, integrity and E&S standards.
+Impact thesis, E&S screening, governance, anti-corruption, stakeholder risk.
+Fintech / embedded lender
+Automated high-frequency data and standardized products.
+Consent, data quality, explainability, model controls, exception handling.
+
+14  Complete Borrower Journey
+Stage
+Borrower experience
+System output
+1. Eligibility pre-screen
+Business identity, jurisdiction, purpose, amount, sector, minimum revenue/operating history, prohibited activities.
+Eligibility outcome and required module.
+2. Consent and account creation
+Consent to data use, sharing, screening, e-signature, retention, and lender introductions.
+Consent ledger and access permissions.
+3. Guided intake
+Adaptive questions based on business type, country, and financing purpose.
+Structured borrower profile.
+4. Document/data connection
+Uploads plus bank/accounting/ERP/processor connections where available.
+Evidence inventory and provenance.
+5. Automated extraction and reconciliation
+Extract fields, classify documents, cross-check statements, bank, tax, debt, ownership, and contracts.
+Exceptions, missing data, confidence scores.
+6. Human verification
+Analyst resolves exceptions, sanctions/PEP hits, legal issues, and material assumptions.
+Verified data set and reviewer log.
+7. Readiness scoring
+Deterministic score, evidence grade, external context, module score, red flags.
+Preliminary CRF report.
+8. Borrower remediation sprint
+Action list, templates, partner referrals, updated evidence.
+Improved score and audit trail.
+9. Borrower attestation
+Authorized officer confirms completeness, accuracy, changes, and disclosures.
+Signed attestation.
+10. Certification / data room
+Publish time-limited CRF package with role-based access.
+CRF certificate and lender data room.
+11. Matching and consented introduction
+Match by product, geography, size, risk appetite, currency, collateral, sector.
+Borrower-approved lender introductions.
+12. Lender diligence and decision
+Lender performs underwriting, requests additions, structures and approves/declines.
+Independent lender outcome.
+13. Closing orchestration
+Counsel, compliance, conditions precedent, signatures, security, settlement through licensed parties.
+Closing checklist and immutable audit record.
+14. Monitoring and refresh
+Periodic financials, covenants, collateral, compliance, and material changes.
+Updated readiness status and early-warning alerts.
+
+15  Complete Lender Journey
+Stage
+Lender action
+Platform boundary/output
+1. Institution onboarding
+Verify entity, users, permissions, jurisdictions, product mandate, regulatory role.
+Lender profile and controls.
+2. Appetite configuration
+Loan size, currency, tenor, sector, country, purpose, collateral, financial thresholds, exclusions.
+Machine-readable mandate.
+3. Opportunity feed
+Only consented, gate-passed opportunities matching basic appetite.
+Ranked but non-binding matches.
+4. Readiness review
+View score components, evidence grade, external context, red flags, change log, and source links.
+Explainable screening packet.
+5. Data-room access
+Role-based access; watermark/download controls; question log.
+Auditable diligence activity.
+6. Underwriting workspace
+Lender imports data, adds its own model, adjusts assumptions, requests evidence.
+Lender-owned analysis separate from CRF.
+7. Indicative terms / pass
+Record non-binding interest, decline reason taxonomy, or diligence requests.
+Workflow status and borrower feedback.
+8. Committee and approvals
+Lender runs internal policy, credit committee, legal, compliance, valuation, and exceptions.
+Independent approval record.
+9. Closing coordination
+Conditions precedent, KYC refresh, documents, security, settlement with licensed parties.
+Closing tracker.
+10. Monitoring
+Receive agreed borrower reporting, covenant data, collateral reports, and alerts.
+Portfolio monitoring feed.
+11. Feedback loop
+Provide anonymized outcome/performance data subject to agreement.
+Framework calibration without leaking lender confidential models.
+
+16  Recommended AI and Data Architecture
+Architectural rule — Use AI to read, reconcile, explain, prioritize, and coach. Use deterministic services for calculations, gates, scoring, permissions, and audit. Keep humans responsible for exceptions, adverse decisions, legal interpretation, sanctions matches, and lender approval.
+
+Layer
+Function
+Required output/control
+1. Secure ingestion
+Uploads, email ingestion, API connections, mobile capture; malware scanning, encryption, consent.
+Immutable original, hash, source, timestamp, owner.
+2. Document intelligence
+OCR, classification, table extraction, entity/field extraction, language detection, version comparison.
+Field-level confidence and bounding-box provenance.
+3. Financial normalization
+Chart-of-accounts mapping, currency, period alignment, normalization, cash-flow construction, ratios.
+Deterministic financial data model.
+4. Entity and ownership graph
+Entities, UBOs, directors, affiliates, guarantors, counterparties, contracts, assets.
+Graph for KYB, concentration, related parties, conflicts.
+5. Verification layer
+Registry, bank, tax, accounting, sanctions, credit bureau, appraisal, e-sign, source checks.
+Evidence tier and verification status.
+6. Rules and gates engine
+Jurisdiction rules, required documents, eligibility, red flags, freshness, module selection.
+Deterministic pass/escalate/fail.
+7. Scoring engine
+Versioned controls, weights, N/A rules, caps, reason codes, overrides.
+Reproducible score and category breakdown.
+8. LLM reasoning layer
+Summaries, document Q&A, gap explanations, draft memos, borrower coaching, analyst assistance.
+Cited narrative; no silent calculation or decision.
+9. Matching engine
+Mandate filters first; explainable ranking second.
+Consent-based recommendations, not suitability/approval.
+10. Workflow and human review
+Queues, maker-checker, legal/compliance review, exception resolution, approvals.
+Named accountability and service levels.
+11. Monitoring and early warning
+Data refresh, covenant/metric change, missing reports, sanctions refresh, collateral and news alerts.
+Alerts with severity, evidence, and owner.
+12. Audit and model governance
+Model registry, prompt/version logs, evaluation, drift, bias, security, override analysis.
+Examiner-ready audit package.
+
+16.1  AI Use-Case Matrix
+Use case
+Position
+Control requirement
+Document extraction
+Recommended
+Human review for low-confidence/material fields; preserve source location.
+Missing-document detection
+Recommended
+Rules engine owns requirement; AI may classify and explain.
+Financial analysis
+Recommended with controls
+Calculations deterministic; AI describes drivers and anomalies.
+Fraud/anomaly detection
+Assistive only
+Escalate signals; never label fraud without investigation.
+Readiness scoring
+Deterministic core; AI explanation only
+AI cannot change weights, evidence, caps, or gates.
+Executive summaries
+Recommended
+Citations to source fields/documents; disclose generated status.
+Borrower coaching
+Recommended
+Actionable, non-legal/non-investment guidance; templates and partner referrals.
+Lender matching
+Recommended with restrictions
+Hard mandate filters; explain match reasons; no guarantee or suitability claim.
+Credit approval / pricing
+Not a CRF function
+Owned by lender and regulated decision-makers.
+Sanctions hit resolution
+Human decision required
+AI may cluster/compare identifiers but not clear a match autonomously.
+
+17  Suggested APIs and Third-Party Integrations
+Vendor names below are examples, not endorsements. Coverage, licensing, data residency, permitted purpose, accuracy, pricing, and availability must be validated country by country before procurement.
+Integration domain
+Examples
+Purpose
+Company / registry / UBO
+National corporate and beneficial-owner registries; OpenCorporates; GLEIF LEI; Open Ownership/BODS-compatible data.
+Entity verification, ownership graph, legal status, identifiers.
+KYC / KYB / biometrics
+Trulioo, Sumsub, Persona, Veriff, local identity providers.
+Identity and business verification with country coverage review.
+Sanctions / PEP / adverse media
+Official UN, OFAC, EU and local lists; ComplyAdvantage, LSEG World-Check, Moody’s Grid, LexisNexis.
+Screening, monitoring, match workflow; human disposition.
+Open finance / banking
+Belvo, Prometeo, local bank APIs; secure statement ingestion fallback.
+Balances, transactions, revenue/cash-flow validation, account ownership.
+Accounting / ERP
+QuickBooks, Xero, NetSuite, SAP, Microsoft Dynamics, Odoo and local systems.
+General ledger, financial statements, AR/AP, inventory, audit trail.
+Payments / commerce
+Stripe, Adyen, Mercado Pago, Shopify, marketplaces and local processors where authorized.
+Revenue, refunds, chargebacks, channel concentration.
+Document AI
+Google Document AI, AWS Textract, Azure AI Document Intelligence; specialist parsers.
+OCR/table/field extraction; dual validation for critical data.
+E-signature / identity
+DocuSign, Adobe Acrobat Sign, qualified local e-sign providers.
+Signatures, certificates, timestamps, consent and document execution.
+Credit bureaus
+Country-authorized commercial/consumer bureaus and central credit information systems, with consent.
+Payment history, existing exposure, adverse events.
+Collateral / valuation
+Licensed appraisers, registries, lien searches, property data, equipment valuation, invoice verification.
+Ownership, value, priority, eligibility and monitoring.
+Macro / country / climate
+Central banks, supervisors, IMF, World Bank, IDB, OECD, rating agencies, disaster/climate data.
+External Risk Context and stress assumptions.
+Cybersecurity / audit
+Cloud KMS/HSM, SIEM, DLP, vulnerability management, immutable logging, SOC/ISO tooling.
+Security, evidence, incident response and third-party risk.
+
+17.1  Integration Principles
+API data should not automatically outrank signed or audited evidence; conflicts must create an exception.
+Every material field must retain source, timestamp, consent basis, transformation history, and reviewer status.
+Use least-privilege, tokenized credentials, rotation, audit logging, vendor-risk review, and data-retention controls.
+Design for manual fallback because many Latin American registries and institutions will not provide reliable APIs.
+Do not make commercial launch dependent on perfect open banking. A secure, verified-document workflow is the practical MVP.
+Country coverage and lawful-use rights must be tested before naming an integration “supported.”
+18  Governance, Auditability, and Model Risk
+Control
+Requirement
+Framework owner
+Named policy owner accountable for taxonomy, weights, modules, and changes.
+Independent validation
+Pre-launch validation and periodic revalidation by credit, legal, compliance, data, and model-risk experts.
+Version control
+Scores are reproducible under the exact model/rules version used at the time.
+Change governance
+Material changes require impact analysis, approval, documentation, testing, and communication.
+Model inventory
+Register every statistical model, AI model, prompt, ruleset, data source, owner, purpose, limitation, and dependency.
+Validation
+Conceptual soundness, data quality, performance testing, outcomes analysis, stability, sensitivity, and limitations.
+Effective challenge
+Independent reviewers can question assumptions, data, outputs, and use limitations.
+Human override
+Maker-checker approval, reason codes, evidence, expiry, and override monitoring.
+Bias and fairness
+Test disparate outcomes and proxy variables; prohibit protected-class use unless legally required/permitted.
+Appeal / correction
+Borrowers can see missing items and reason codes, correct factual errors, and resubmit evidence.
+Outcome calibration
+Track lender review, approval, close, default, loss, fraud, and time-to-close—without converting CRF into an undisclosed credit model.
+Independent audit
+Periodic policy, data, security, scoring, access, and certification audits.
+
+Model-risk benchmark — Federal Reserve model-risk guidance emphasizes robust development, validation, governance, and “effective challenge.” NIST’s AI Risk Management Framework organizes AI risk work around Govern, Map, Measure, and Manage. These are appropriate design anchors even where they are not directly binding. [R7–R8]
+
+19  Regulatory Considerations for Latin America
+This section is an implementation checklist, not a country legal opinion. Before launch, local counsel should produce a written regulatory-perimeter memorandum for each country, product, lender type, borrower type, and fee flow.
+Question
+Why it matters
+Does platform activity constitute lending, arranging, brokerage, financial intermediation, securities placement, investment advice, crowdfunding, payments, trust/fiduciary, or credit-bureau activity?
+Licensing, registration, conduct, disclosure, and supervision may apply even if the platform never funds or custodies money.
+Who is the customer and who pays?
+Success fees, application fees, lender subscriptions, and referral fees can alter characterization and conflicts.
+Is the product a bilateral commercial loan, syndicated participation, note, receivables purchase, investment contract, fund interest, or security?
+Legal classification determines regulators, solicitation rules, transfer restrictions, disclosures, and investor eligibility.
+How are KYC/AML responsibilities allocated?
+The platform, lender, law firm, fiduciary, and payment provider need a documented responsibility matrix; reliance rules differ.
+Can borrower and UBO data be collected, screened, transferred cross-border, retained, and used for automated analysis?
+Privacy, consent, data localization, security, breach response, and automated-decision rules may apply.
+How are liens and guarantees created, perfected, prioritized, monitored, and enforced?
+Security is only useful if legally valid and practically enforceable in the asset jurisdiction.
+What taxes and FX rules apply?
+Withholding, stamp/registration taxes, transfer pricing, thin capitalization, interest deductibility, exchange controls, and currency mismatch affect economics.
+What consumer or SME protections apply?
+The MVP should focus on business-purpose financing, but sole proprietors and microenterprises may receive protective treatment.
+
+19.1  Initial Country Workstreams
+Country
+Launch workstream
+Costa Rica
+Map SUGEF-regulated/registered activities and partner responsibilities; use consented credit-information channels; account for FX-exposed debtor analysis; verify AML registration obligations for relevant non-financial activities; validate data protection, e-signature, registry, lien, tax, and securities rules. SUGEF publishes supervised entities, the CIC credit-information system, risk-based supervision, FX-exposed debtor reporting, and Law 7786 registered subjects. [R9]
+Panama
+Map SBP banking perimeter, securities and fiduciary roles, UAF/AML duties, beneficial ownership, data protection, e-signature, collateral, tax, and cross-border structures. Current SBP materials emphasize supervision, illicit-operation prevention, sustainable-finance taxonomy, and 2026 AML/CFT controls and sanctions. [R10]
+El Salvador
+Map SSF-supervised activities, financial and securities perimeter, UIF/AML duties, data/cybersecurity requirements, collateral and registry rules, and the separate digital-assets regime for any future tokenization. Traditional lending workflows should remain legally and operationally separate from digital-asset issuance. [R11]
+
+19.2  Recommended Launch Posture
+Business-purpose borrowers only in the first release; exclude consumer lending and avoid ambiguous personal-purpose loans.
+No custody, money transmission, settlement, escrow, or balance-sheet lending by the platform.
+No public promise of approval, rate, funding certainty, or “pre-approved” status based on CRF.
+Lender and legal/compliance partners make regulated decisions and own required filings.
+Borrower-controlled introduction: do not share a data room with a lender without explicit consent.
+Country-specific terms, privacy notices, data-processing agreements, fee disclosures, conflicts policy, and complaints process.
+Create a jurisdiction rule engine, but require counsel sign-off before activating a new product-country combination.
+20  Recommendations for Future Tokenization Compatibility
+Principle — Tokenize a legally valid, serviced, enforceable financial claim—not a PDF, appraisal, or vague economic promise. The legal instrument, authoritative ownership record, payment rights, security package, and transfer restrictions must exist before the token layer.
+
+Design element
+Traditional-first requirement
+Token-compatible extension
+Legal instrument
+Executed loan/note/participation/security documents.
+Machine-readable instrument terms linked to token metadata.
+Issuer / obligor / SPV
+Verified entities, UBOs, authority, bankruptcy and tax analysis.
+LEI or durable identifiers; controlled issuance roles.
+Authoritative register
+Defined lender/holder of record and transfer process.
+On-chain register only if legally recognized; otherwise synchronized off-chain authoritative register.
+Investor eligibility
+Manual/legal eligibility and transfer restrictions.
+Whitelist/credential checks and jurisdiction-aware transfer rules.
+Servicing
+Payment schedule, bank accounts, notices, covenants, arrears, reconciliations.
+Servicing oracle/events with independent reconciliation; no blind reliance on smart contracts.
+Collateral / security
+Perfection, priority, custody/control, insurance, enforcement.
+Token references security but does not itself perfect a lien unless law clearly provides.
+Corporate actions
+Amendments, waivers, votes, defaults, acceleration, restructurings.
+Governed digital workflows with quorum and legal-document updates.
+Privacy
+PII and confidential documents protected off-chain.
+Hashes/commitments, selective disclosure, verifiable credentials; no sensitive raw data on public chains.
+Custody / settlement
+Licensed bank, custodian, broker, transfer agent, or payment partner as required.
+Regulated digital-asset/custody/settlement partners; platform remains orchestration layer.
+AML / sanctions
+Risk-based KYC/KYB, UBO, source of funds, monitoring.
+Wallet screening and FATF virtual-asset/Travel Rule controls where applicable.
+Recovery / errors
+Legal remedies, correction, replacement, lost certificate/account process.
+Pause, freeze, burn/reissue, chain-fork and key-loss procedures governed by legal documents.
+
+20.1  Data Standards to Build Now
+Unique IDs for borrower, entity, UBO, facility, instrument, collateral asset, contract, document, and evidence item.
+Canonical machine-readable term sheet: currency, principal, rate, index, dates, amortization, covenants, events of default, collateral, and transfer rules.
+Event model for draw, payment, delinquency, waiver, amendment, collateral update, covenant breach, acceleration, and payoff.
+Field-level provenance and cryptographic hashes of authoritative documents.
+Role and permission model that can later map to issuer, administrator, servicer, custodian, transfer agent, investor, and regulator.
+Compatibility with LEI, beneficial-ownership data standards, verifiable credentials, and electronic transferable-record standards where legally supported.
+21  Risks and Limitations of Readiness Scoring
+Risk
+Required safeguard
+Readiness is mistaken for creditworthiness
+Prominent disclaimers; separate score, context, and lender decision; prohibit approval language.
+False precision
+Show category scores, evidence grade, ranges/conditions, and source data—not just one number.
+Score gaming / document theater
+Cross-reconcile source data, sample controls, require attestation, track changes and anomalies.
+Bias / exclusion
+Test outcomes; separate external risk from controllable readiness; provide remediation and appeal.
+Poor or fraudulent data
+Evidence confidence, independent verification, conflict rules, human investigation.
+Stale score
+Expiration, freshness rules, material-change duty, monitoring and automatic downgrade to stale.
+Lender heterogeneity
+Core standard plus lender overlays; never claim universal approval thresholds.
+Model drift and AI hallucination
+Deterministic scoring, validation, monitoring, source citations, restricted LLM role.
+Regulatory perimeter creep
+Country/product legal matrix, role controls, no custody/lending, partner licensing checks.
+Certification liability
+Careful name/claims, terms, scope, methodology, reliance limitations, insurance, and audit.
+Conflicts from fees
+Disclose fees; independent score governance; analysts not paid for score uplift; monitor overrides.
+Cross-border privacy/security
+Data minimization, lawful basis, transfer mechanisms, regional architecture, vendor controls, incident plan.
+Over-standardization
+Modular business/financing types, N/A taxonomy, expert review, periodic consultation.
+Weak outcome data
+Pilot with design lenders, use conservative claims, publish validation limits, recalibrate transparently.
+
+22  Recommended Implementation Roadmap
+Phase
+Indicative sequence
+Deliverables
+Phase 0 — Governance and legal perimeter
+4–6 weeks
+Framework charter; country legal memos; prohibited activities; fee/conflict policy; data/privacy architecture; advisory council.
+Phase 1 — Manual CRF pilot
+6–10 weeks
+Human-led intake, core checklist, 0–4 controls, score workbook, evidence grade, data-room standard; 10–20 cases.
+Phase 2 — Digital readiness workspace
+8–12 weeks
+Borrower portal, adaptive checklist, document vault, workflow, deterministic score, analyst review, lender view.
+Phase 3 — Document intelligence and reconciliation
+8–16 weeks
+OCR/extraction, financial normalization, missing-document detection, provenance, exceptions, summaries.
+Phase 4 — Lender mandates and matching
+6–10 weeks
+Appetite profiles, consented matching, lender workflow, feedback taxonomy, no automatic approval.
+Phase 5 — Monitoring and validation
+Ongoing
+Periodic refresh, covenant data, early warning, outcome calibration, bias/drift, independent audit.
+Phase 6 — Country and product expansion
+Per module
+Counsel validation, local integrations, new financing modules, translation, tax/security workflow.
+Phase 7 — Tokenization-compatible rails
+After legal/product maturity
+Instrument/event standards, regulated partners, transfer restrictions, servicing reconciliation, pilot only where legal.
+
+22.1  Pilot Success Metrics
+Metric
+Pilot target / interpretation
+Time to complete readiness package
+Baseline versus standardized process; track median and 90th percentile.
+First-pass completeness
+Share of required fields/documents accepted without rework.
+Reconciliation exception rate
+Material conflicts per application and resolution time.
+Lender diligence requests
+Reduction in repetitive/missing-information requests—not suppression of valid diligence.
+Time to lender screening decision
+Time from consented access to initial proceed/pass/request.
+Borrower remediation conversion
+Share moving up at least one readiness band after action plan.
+Override rate
+Frequency, direction, reason, reviewer, and outcome; high rates indicate framework weakness.
+Outcome performance
+Introductions, term sheets, closes, defaults, losses, fraud, satisfaction—interpreted carefully.
+Fairness / access
+Completion, score, match, and outcome patterns by lawful business/geographic segments.
+
+A  Appendix: Core Scorecard Blueprint
+Control
+Weight
+A1 Historical financials and accounting basis
+4
+A2 Management reporting cadence and close
+3
+A3 Reconciliation to bank/tax/ledgers
+4
+A4 Forecast integration and assumptions
+2
+A5 Data lineage and change control
+2
+B1 Primary repayment / DSCR or equivalent
+5
+B2 Liquidity and working capital
+4
+B3 Profitability/margins and cash conversion
+3
+B4 Leverage, interest and maturity burden
+3
+B5 Revenue stability/concentration
+3
+B6 Downside resilience
+2
+C1 Leadership capability and integrity
+3
+C2 Governance and decision rights
+3
+C3 Key-person/succession and organization
+2
+C4 Ownership alignment/related parties
+2
+C5 Budgeting and accountability
+2
+D1 Core process maturity and KPIs
+2
+D2 Internal controls and segregation
+3
+D3 Reporting capability
+2
+D4 Technology/data/cyber controls
+2
+D5 Business continuity/insurance
+1
+E1 Entity, authority and good standing
+3
+E2 Ownership/group/UBO structure
+2
+E3 Debt/liens/guarantees completeness
+2
+E4 Material contracts
+2
+E5 Licenses/regulatory standing
+2
+E6 Litigation/tax/labor claims
+1
+E7 IP ownership/dependencies
+1
+F1 KYC/KYB/UBO verification
+2
+F2 Sanctions/PEP/adverse media process
+2
+F3 Source of funds/wealth
+1
+F4 Anti-corruption/third parties
+2
+F5 Tax/labor compliance
+1
+F6 ESG/E&S materiality and management
+2
+G1 Purpose and amount rationale
+3
+G2 Sources and uses / borrower contribution
+3
+G3 Repayment structure and cash-flow alignment
+3
+G4 Downside/exit/refinancing plan
+2
+G5 Covenant/reporting capacity
+2
+G6 Stakeholder approvals/consents
+1
+H1 Asset/support identification and ownership
+1.5
+H2 Valuation/eligibility quality
+1.5
+H3 Perfection/enforceability readiness
+1.5
+H4 Monitoring/control/insurance
+1.0
+H5 Alternative support where unsecured
+0.5
+
+Weights total 100. The detailed control library should include definition, purpose, evidence examples, maturity anchors, business-type applicability, financing-module applicability, reviewer role, freshness period, and red-flag triggers.
+B  Appendix: Evidence and Certification Rules
+Evidence tier
+Description
+Examples
+E0 — Unsubstantiated
+Claim without supporting evidence.
+Questionnaire answer only.
+E1 — Borrower document
+Document supplied by borrower; authenticity/source not independently verified.
+Internal spreadsheet, unsigned schedule.
+E2 — Source-system / counterparty evidence
+Evidence from bank, ERP, processor, registry, customer/supplier, or secure system.
+API transaction data, registry extract, signed contract.
+E3 — Independent professional evidence
+Independent accountant, auditor, lawyer, appraiser, engineer, notary, regulator, or verified registry.
+Audit/review report, legal opinion, licensed appraisal.
+
+Evidence rule
+Recommended policy
+Materiality
+Define quantitative and qualitative materiality by control and financing module.
+Freshness
+Identity/sanctions at assessment and closing; bank/financial data recent; appraisals and legal searches module-specific.
+Contradiction
+Any material conflict creates an exception; do not average conflicting values.
+Translation
+Preserve original; certified translation where legal reliance requires it; machine translation labeled.
+Attestation
+Authorized officer attests completeness, accuracy, and duty to disclose material changes.
+Certification validity
+Time-limited; expires or becomes stale on material change, missing update, or new red flag.
+N/A use
+Allowed only by controlled taxonomy; never used merely because evidence is missing.
+Reallocation
+Weights may be redistributed only within approved module rules and recorded.
+Reviewer independence
+High-risk gates and overrides require maker-checker or specialist approval.
+Borrower visibility
+Borrower sees category results, missing evidence, reason codes, conditions, and correction path.
+
+B.1  Proposed CRF Certificate Fields
+Borrower legal name, jurisdiction, entity identifier, group and UBO status.
+Assessment date, expiration date, framework version, module and reviewer.
+Total score and band; category scores; Evidence Confidence grade.
+External Risk Context level and disclosed key factors.
+Eligibility-gate status, red flags, conditions, and unresolved exceptions.
+Document/evidence coverage, freshness, and verification summary.
+Capital request: purpose, amount, currency, tenor, repayment source and collateral/support summary.
+Explicit limitation: readiness only; no approval, credit rating, investment recommendation, guarantee, or legal opinion.
+Cryptographic document/package hash and audit-log reference.
+C  References and Research Anchors
+Ref.
+Source
+Relevance
+R1
+Basel Committee on Banking Supervision, Principles for the Management of Credit Risk (2000; superseded but foundational).
+Credit environment, granting, administration, monitoring and controls.
+R2
+Basel Committee on Banking Supervision, Basel III: Finalising Post-Crisis Reforms (2017) and consolidated Basel Framework.
+Due diligence, comparability, risk sensitivity, operating and financial performance, ongoing access to information.
+R3
+Financial Action Task Force, The FATF Recommendations (current consolidated version).
+Risk-based AML/CFT, customer due diligence, beneficial ownership, sanctions and recordkeeping.
+R4
+FATF, Risk-Based Approach Guidance for the Banking Sector.
+Proportionate risk assessment and customer due diligence.
+R5
+Office of the Comptroller of the Currency, Comptroller’s Handbook: Asset-Based Lending (2017).
+ABL risks, prudent risk management and supervisory expectations.
+R6
+Office of the Comptroller of the Currency, Comptroller’s Handbook: Commercial Real Estate Lending (2022).
+Acquisition, development, construction and income-producing real estate risk management.
+R7
+Board of Governors of the Federal Reserve System / OCC, SR 11-7: Guidance on Model Risk Management.
+Model development, validation, governance and effective challenge.
+R8
+National Institute of Standards and Technology, AI Risk Management Framework (AI RMF 1.0 and related resources).
+Govern, Map, Measure and Manage AI risk.
+R9
+Superintendencia General de Entidades Financieras (Costa Rica), official legal, regulatory, credit-information, supervised-entity, FX-risk and AML-registration resources.
+Costa Rica launch perimeter and verification sources.
+R10
+Superintendencia de Bancos de Panamá, official supervision, regulatory, AML/CFT, sanctions, risk and sustainable-finance resources.
+Panama launch perimeter and current supervisory priorities.
+R11
+Superintendencia del Sistema Financiero (El Salvador), official regulatory and supervised-entity resources.
+El Salvador financial-system perimeter.
+R12
+International Finance Corporation, Performance Standards on Environmental and Social Sustainability.
+Environmental and social risk identification and management.
+R13
+G20/OECD Principles of Corporate Governance (2023).
+Governance, disclosure, board responsibility and stakeholder considerations.
+R14
+IFC Corporate Governance Methodology and related governance tools.
+Governance assessment for emerging-market companies and financial institutions.
+R15
+World Bank Group / IFC SME finance, investment, integrity and environmental/social due-diligence resources.
+SME finance and development-finance practices.
+R16
+U.S. Small Business Administration lending SOPs and lender guidance.
+Small-business eligibility, repayment ability, equity, collateral and documentation practices.
+R17
+European Investment Bank, KfW and U.S. International Development Finance Corporation project/investment appraisal and E&S policy resources.
+Project viability, impact, integrity, procurement and E&S diligence.
+R18
+Global Legal Entity Identifier Foundation (GLEIF).
+Legal entity identifiers and verifiable organizational identity.
+R19
+Open Ownership, Beneficial Ownership Data Standard.
+Structured beneficial-ownership data and interoperability.
+R20
+UNCITRAL Model Law on Electronic Transferable Records and electronic commerce/signature instruments.
+Future electronic instruments and transferable-record compatibility.
+R21
+Moody’s, S&P Global Ratings and Fitch Ratings corporate/sector criteria and rating definitions.
+Business risk, financial risk, liquidity, governance, event and recovery analysis; ratings are not recommendations.
+R22
+IFRS/IAS and applicable local accounting standards; auditor and professional accounting guidance.
+Financial statement quality, consistency and disclosure.
+
+Research-to-product distinction — References establish practices and control themes. The exact CRF weights, score bands, evidence grades, caps, and certification workflow in this document are proposed innovations that require pilot validation and governance before commercial claims.
+
+END OF FOUNDATIONAL DESIGN DOCUMENT
