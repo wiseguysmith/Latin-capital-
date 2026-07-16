@@ -14,7 +14,7 @@
 
 ## 1. How to read
 
-Rows trace **CRF principles and mechanisms** (the methodology's load-bearing rules) through the product. Column key: Req (15), Story (70), Screen (18), Entity (33), Service/Module (41), Event (36), Test (73/74 + 72 AC), Owner (operational role), Phase (75). A second table traces the 48 controls as a block (they share machinery). This matrix answers: *"exactly how is each important CRF requirement represented in the product?"* (master prompt §18).
+Rows trace **CRF principles and mechanisms** (the methodology's load-bearing rules) through the product. Column key: Req (15), Story (70), Screen (18), Entity (33), Service/Module (41), Event (36), Test (73/74 + 72 AC), Owner (operational role), Phase (75). A second table traces the 45 controls as a block (they share machinery). This matrix answers: *"exactly how is each important CRF requirement represented in the product?"* (master prompt §18).
 
 ## 2. Principle/mechanism traceability
 
@@ -28,7 +28,7 @@ Rows trace **CRF principles and mechanisms** (the methodology's load-bearing rul
 | §4.2 | Evidence confidence A–D separate; D = no certification | FR-SCORE-03 | US-607 | B10, C4 | ENT-21 | assessment | — | AC-US-607; 22 §7 tests | Framework owner | 2 |
 | §4.3 caps | CAP-00…06 incl. unreconciled ≤59, no-repayment ≤59, undisclosed = no cert | 23 §5 | US-605 | B12, A7 | ENT-21 | scoring-engine | — | TC-SCORE-03 | Framework owner | 1 |
 | §4.3 overrides | Reason+evidence+approver+expiry; never silent | FR-SCORE-07 | US-606 | A9 | ENT-20 | assessment | override.* | AC-US-606 | R-SA | 1 |
-| App A | 48 controls + weights as config | 21 | US-609 | A13 | ENT-31 | config-registry | scoring_model.* | weight-sum validation | Framework owner | 1 |
+| App A | 45 controls + weights as config | 21 | US-609 | A13 | ENT-31 | config-registry | scoring_model.* | weight-sum validation | Framework owner | 1 |
 | App B tiers | E0–E3 evidence tiers feed confidence | 22 §3 | US-607 | A5 | ENT-13/14 | evidence | document.verified | 22 fixtures | Reviewers | 2 |
 | App B contradiction | Conflicts = exceptions, never averaged | FR-AI-03 | US-503 | A6 | ENT-15 | ai-orchestrator→evidence | exception.* | AC pattern + adversarial | R-FR | 2 |
 | App B N/A | Controlled taxonomy; not for missing evidence | 24 §4 | US-602 | A7/B6 | ENT-17 | rules-gates | control.assessed | TC-SCORE-06 | Framework owner | 1 |
@@ -56,7 +56,7 @@ Rows trace **CRF principles and mechanisms** (the methodology's load-bearing rul
 
 ## 3. Control-block traceability (A1…H5)
 
-All 48 controls share machinery — one row pattern, instantiated per control in the config bundle:
+All 45 controls share machinery — one row pattern, instantiated per control in the config bundle:
 
 | Link | Value |
 |---|---|

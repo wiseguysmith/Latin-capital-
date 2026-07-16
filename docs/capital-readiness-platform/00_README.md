@@ -21,7 +21,7 @@ A digital operating system that determines **how prepared a business is to recei
 ## 2. Controlling sources
 
 1. **Capital Readiness Framework (CRF) v1.0** — controlling source for readiness methodology (scoring dimensions, control library, maturity scale, bands, evidence confidence, gates/caps, external risk context). Archived at `source/`.
-2. **Resolved MVP product decisions** — recorded in `05_DECISION_LOG.md` (D-01 through D-16).
+2. **Resolved MVP product decisions** — recorded in `05_DECISION_LOG.md` (D-01 through D-20).
 3. Sound private-credit / security / AI-governance practice fills gaps; every gap-fill is an assumption labeled `ASM-xx` in `03_SOURCE_OF_TRUTH_AND_ASSUMPTIONS.md`.
 4. Jurisdiction-specific statements are **not legal conclusions** until validated per `64_REGULATORY_AND_LEGAL_VALIDATION_CHECKLIST.md`.
 
@@ -49,7 +49,7 @@ All documents use these ID schemes. Never invent a parallel scheme.
 
 | Prefix | Meaning | Defined in |
 |---|---|---|
-| `A1…H5` | CRF controls (48 controls, 8 dimensions) | 21 |
+| `A1…H5` | CRF controls (45 controls, 8 dimensions) | 21 |
 | `GATE-xx` | Eligibility & integrity gates | 23 |
 | `CAP-xx` | Score caps | 23 |
 | `FLAG severity S1–S4` | Red-flag severities | 23 |
@@ -77,7 +77,7 @@ All documents use these ID schemes. Never invent a parallel scheme.
 5. **Humans approve** applicants, sanctions dispositions, legal interpretations, overrides, final assessments, and publication (D-07).
 6. **Every material action is an audit event** (36).
 7. **Jurisdiction logic lives in overlays**, never hardcoded (60–63).
-8. **Payment/fee status must never influence readiness results** (15 §FR-SCORE; 78 RISK-14).
+8. **Payment/fee status must never influence readiness results** (15 FR-SCORE-10; 78 RISK-08).
 
 ## 6. Executive handoff — how the build team should use this suite
 

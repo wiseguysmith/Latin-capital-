@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Purpose | The 48-control registry (weights from CRF Appendix A), maturity anchors, evidence expectations, freshness, red-flag triggers, and storage model |
+| Purpose | The 45-control registry (weights from CRF Appendix A), maturity anchors, evidence expectations, freshness, red-flag triggers, and storage model |
 | Audience | Framework owner, reviewers, backend engineers |
 | Status | Draft v1.0 (scoring model v1.0.0) |
 | Version | 1.0.0 |
@@ -66,7 +66,7 @@ Rule: **level 4 requires at least one E3-tier evidence item** for the control (o
 | C1 | Leadership capability & integrity | 3 | Track record, domain expertise, capacity | EV-GOV-01 (CVs), EV-CMP-04 (integrity checks) | 12m | adverse-media hits (route R-CR) |
 | C2 | Governance & decision rights | 3 | Board/advisory, reserved matters, delegation, minutes | EV-GOV-02/03 | 12m | decisions outside authority |
 | C3 | Key-person/succession & organization | 2 | Role clarity, backups, retention, succession, insurance | EV-GOV-04 | 12m | single-person dependency unmitigated |
-| C4 | Ownership alignment / related parties | 2 | Cap table clarity, shareholder agreements, related-party terms, disputes | EV-OWN-01/02, EV-LEG-06 | 6m | ownership disputes (S2) |
+| C4 | Ownership alignment / related parties | 2 | Cap table clarity, shareholder agreements, related-party terms, disputes | EV-OWN-01/02/04, EV-REL-01 | 6m | ownership disputes (S2) |
 | C5 | Budgeting & accountability | 2 | Budget approval, major-contract & borrowing authority, exception escalation | EV-GOV-05 | 12m | — |
 
 ### D. Operations, Controls & Technology — 10

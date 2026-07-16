@@ -27,7 +27,7 @@ The MVP is complete when: a Costa Rican business can apply; an admin can screen 
 | Workspace | Company profile, ownership/UBO capture, capital request, use of proceeds, financing preferences, personalized checklist, tasks, deadlines, status | 1 |
 | Documents | Secure upload, versioning, document room, manual classification (P1) then AI classification (P2), review states, expiry/supersede | 1–2 |
 | AI | Per-document pipeline (classify/extract/map/defects/clarifications/confidence), full-package analysis (reconciliation, contradictions, staleness, completeness), verification queues, draft explanations | 2 |
-| Scoring | Deterministic engine: 48 controls, maturity capture, applicability profiles, caps/gates, bands, evidence confidence, external risk context capture, versioned model; manual maturity entry in P1 with AI-proposed maturities in P2 | 1–2 |
+| Scoring | Deterministic engine: 45 controls, maturity capture, applicability profiles, caps/gates, bands, evidence confidence, external risk context capture, versioned model; manual maturity entry in P1 with AI-proposed maturities in P2 | 1–2 |
 | Review & approval | Reviewer queues, control assessment UI, gate/flag review, override workflow, senior approval, borrower report generation | 1–2 |
 | Remediation | Gap-remediation plan generation and tracking; reassessment | 2 |
 | Providers | Provider onboarding (manual diligence), provider workspace, curated publication, approved document room, RFI, EOI, notes, statuses, access expiry | 3 |

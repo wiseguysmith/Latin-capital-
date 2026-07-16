@@ -57,6 +57,46 @@ Overlays may add jurisdiction-specific types or field variants (63). "Verificati
 | EV-ESG-01 | E&S materiality screen + sector permits | PDF/structured | ≤12m | mgmt | reviewer/partner | sector risks, permits, incidents | F6 | P2 | approved room |
 | EV-LAB-01 | Social-security/labor compliance evidence (CR: CCSS status) | PDF | ≤90d | issuer | authority verification → E2 | status, arrears | F5 | P3 | approved room |
 
+### 2b. Registry completion — additional evidence types referenced by controls/modules (21, 25)
+
+Compact definitions; each follows the §1 registry model with default privacy P3 (P2 where noted) and approved-room sharing unless stated.
+
+| ID | Evidence type | Notes (period/max age◆, verification path, controls) |
+|---|---|---|
+| EV-FIN-02 | Audit/review report & notes to financial statements | with EV-FIN-01; auditor status check → E3; A1 |
+| EV-FIN-04 | Reconciliation workpapers (statements↔bank↔tax↔ledgers) | ≤90d; R-FR review; A3 |
+| EV-FIN-05 | Normalized-earnings bridge (owner comp, one-offs, related parties — CRF §6.1) | ≤90d; B3 |
+| EV-FIN-07 | Data-lineage register (source system, owner, extraction dates) | at assessment; A5 |
+| EV-FIN-08 | 13-week cash-flow forecast | current; M-WC essential; B2/G3 |
+| EV-FIN-09 | Quality-of-earnings or equivalent independent review | ≤6m; E3; M-ACQ |
+| EV-FIN-10 | Runway/burn model | ≤60d; BT-STARTUP; B1-substitute |
+| EV-REV-01 | Revenue detail by customer/month (24–36m) | ≤90d; source-system export → E2; B5 |
+| EV-REV-02 | Contracts/pipeline/order book | ≤90d; B5, M-EXP |
+| EV-REV-04 | Processor/marketplace reports | ≤60d; E2 required for M-RBF |
+| EV-DBT-03 | Guarantees & contingent-obligations schedule | ≤90d; attested; E3c/B4 |
+| EV-DBT-04 | Payoff letters / lien-release path | ≤30d at approval; M-REFI |
+| EV-OWN-04 | Shareholder/partners agreements | current; legal review; C4 |
+| EV-AR-02 | Detailed receivables tape (invoice-level) | ≤30d; E2 export; M-ABL/H |
+| EV-AP-01 | AP aging (defined §2 with EV-AR-01) | — |
+| EV-INV-01 | Inventory aging summary | ≤60d; BT-ASSET/M-WC |
+| EV-INV-02 | SKU-level inventory report | ≤30d; M-ABL inventory |
+| EV-COL-01 | Collateral asset identification file (titles, serials, registry ids) | ≤90d; registry cross-check → E2; H1 |
+| EV-COL-02 | Independent appraisal (defined §2 exemplar) | RE ≤12m, equip/inv ≤6m; E3; H2 |
+| EV-COL-03 | Lien/registry search report | ≤30d at approval; E2/E3; H3, E3c |
+| EV-COL-04 | Collateral monitoring reports (borrowing base, inspections) | per module cadence; H4 |
+| EV-COL-05 | Vendor quote/invoice/purchase contract (equipment) | current; M-EQUIP; H1 |
+| EV-COL-06 | Fixed-asset register + maintenance records | ≤6m; BT-ASSET; H1/H4 |
+| EV-UOP-04 | Equity/sponsor contribution evidence | ≤60d; bank/e2 trail; G2 |
+| EV-UOP-05 | Exit/takeout/refinance plan | current; G4; M-CONST/M-BRIDGE-RE |
+| EV-CON-02 | Transaction contracts (LOI/SPA, off-take, project contracts) | current; legal review; M-ACQ/M-CONTRACT |
+| EV-LEG-02 | Counsel letters / legal opinions | matter-specific; E3; E6/H3 |
+| EV-IP-01 | IP registrations, assignments, license agreements | ≤12m; registry check where applicable; E7 |
+| EV-TAX-02 | Tax-dispute/arrears documentation | ≤90d; authority verification; E6/F5 |
+| EV-PRO-02…05 | Rent roll+leases; feasibility study; construction contracts/GMP; draw package & controls | per M-CONST/M-BRIDGE-RE manifests (25); P2/P3 |
+| EV-ESG-02 | Environmental study/permit (e.g., SETENA viability in CR) | project-stage-specific; issuer verification → E2; F6/M-CONST |
+| EV-LIC-02 | Zoning/land-use/construction permits | current; issuer/registry → E2; E5/M-CONST |
+| EV-STARTUP set | financing docs, investor-rights, board materials (EV-GOV-03), vesting schedules | per 24 §5; C-dim + M-VD |
+
 ## 3. Type- and module-specific sets (composition per 24 §6 profiles; sources CRF §11–12)
 
 - **BT-STARTUP add:** EV-OWN-02 history, financing docs, board materials (EV-GOV-03), runway/burn model (EV-FIN-10), MRR/ARR + cohorts (EV-REV-03), IP chain (EV-IP-01), founder vesting, next-raise milestones.
