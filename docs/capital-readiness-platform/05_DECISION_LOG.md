@@ -37,6 +37,10 @@ Status values: **Approved** (binding), **Proposed** (needs approval), **Supersed
 | D-19 | 2026-07-16 | Assessment validity 6 months; financial evidence ≤90 days at approval; identity/sanctions re-screen at approval and publication (ASM-07) | CRF Appendix B freshness | Proposed | 20, 22 |
 | D-20 | 2026-07-16 | Scoring engine uses decimal arithmetic; rounding half-up to integer only at final displayed score (REF-01) | CRF Appendix A fractional weights | Approved | 20 |
 
+| D-21 | 2026-07-18 | Pilot commercial model: flat, disclosed readiness-assessment fee paid by the business (indicative $2.5k–$5k; discounted/free for first pilot cohort at founder discretion). No success fees, no percentage fees, no provider fees in the pilot. Resolves OQ-01; fee characterization still validated under CR-L1 | Founder selection 2026-07-18; keeps broker-characterization risk low; D-15 firewall unchanged | Approved | 06, 10, 15, 64, 76 |
+| D-22 | 2026-07-18 | Entity posture: single operating company runs the Costa Rica pilot; no local subsidiary unless counsel memo (CR-L1/OQ-02) requires it. Supersedes the open state of ASM-14 (assumption → decision, counsel validation pending) | Founder selection 2026-07-18; simplest structure to validate first | Approved | 03, 06, 60, 64 |
+| D-23 | 2026-07-18 | Data residency: primary storage in a major US cloud region with explicit borrower consent for cross-border transfer, encryption per 44, and no-training vendor terms; architecture retains region portability (ADR-006) if counsel's Ley 8968 analysis (CR-L3) requires relocation. Resolves OQ-04 as the preferred position pending counsel confirmation | Founder selection 2026-07-18 | Approved | 03, 06, 40, 44, 46, 60 |
+
 ## Change process
 
 New decisions: open a PR editing this file; product owner approves; boundary-affecting decisions (02) additionally need founder + counsel. Superseding: mark old row Superseded, reference the new D-id.
