@@ -40,9 +40,19 @@ The original PRD/specs describe Horizon 2. The **Regulatory Strategy (`03`) gove
 | `07` | **CRP ↔ capitalYA Data Exchange & Validation** | Signed event-driven integration and the **canonical JSON schemas** for the whole program |
 | `08` | **Fee Policy, Catalogue & Pricing Model** | Fee taxonomy, interest-cap rule, zero-rate configurable pricing; numbers deferred to pilot schedules |
 | `09` | **Costa Rica Regulatory Engagement Package** | CIF-first consultation plan, specific regulator questions, 5-stage submission sequence |
+| `10` | **Partner Lender Agreement — Term Sheet** | Non-binding heads of terms; responsibility matrix; deferred commercial terms; definitive-agreement clause list |
+| `11` | **Borrower Disclosures** | Consumer-credit disclosure content + readiness-score rights (counsel + certified Spanish required) |
+| `12` | **CRP Assessment Agreement** | Assessment-only scope, limitation statement, flat non-contingent fee, liability protections |
+| `13` | **Data Processing & Consent** | Ley 8968 notice/consent, controller-processor DPA, US-cloud controls, PRODHAB analysis |
+| `14` | **AML/CFT Escalation Procedure** | Complementary controls; escalation to lender MLRO; no tipping off; no auto sanctions clearance |
+| `15` | **Complaint & Dispute SOP** | Routing matrix operationalized; acknowledgement/resolution flow; CRP appeal linkage |
+| `16` | **Lender-Failure & Backup-Servicing Plan** | Wind-down triggers/actions; backup servicer; what capitalYA may/may not do |
+| `17` | **Pilot Fee Schedule v1.0 (Template)** | Number-free until partner deal + cap test + tax opinion; instantiates `08`/`07` |
 | `sources/` | Archived founder inputs | Original PRD, Technical Specifications, and research brief — **vision context, not build specs** |
 
 **Tier-1 build set (`05`–`09`)** is the concrete MVP documentation: boundary → lender integration → data/schemas → fees → regulator engagement. Reflects the scope decisions of a **single pilot lender**, a **portal-first** surface, capitalYA holding **no funds** and making **no credit decision**.
+
+**Tier-2 build set (`10`–`17`)** are the operational, legal, and commercial artifacts for the pilot — **working drafts/templates.** The agreements require Costa Rican counsel before execution; Spanish operative texts require certified legal drafting; the fee schedule stays number-free until the partner deal, interest-cap test, and tax opinion are done.
 
 ## 4. Reading order by role
 
@@ -79,10 +89,7 @@ Carried from `03` §16 and CRP `02`:
 
 The program layer (`00`–`04`) and the **Tier-1 MVP build set (`05`–`09`)** are complete: boundary statement, partner-lender portal/integration spec, CRP↔capitalYA data exchange + canonical schemas, fee policy/pricing model, and the Costa Rica regulatory engagement package.
 
-**Tier-2 (after the integration model is fixed with the partner):**
-- Partner-lender agreement; borrower disclosures; CRP assessment agreement.
-- Data-processing & consent documents; AML escalation procedure; complaint/dispute SOP.
-- Lender-failure & backup-servicing plan; **Pilot Fee Schedule v1.0** (the actual numbers) and Partner Commercial Schedule.
+**Tier-2 (`10`–`17`) — drafted as working templates.** Now require external inputs to finalize: partner negotiation (term sheet → definitive agreement via counsel), Costa Rican counsel review of all agreements/disclosures, certified Spanish drafting, PRODHAB analysis, and the interest-cap test + tax opinion before the Pilot Fee Schedule takes real numbers. Still outstanding as a distinct artifact: the **Partner Commercial Schedule** (negotiated lender economics), produced alongside `17` once the partner deal is set.
 
 **Background only (must not delay the Costa Rica MVP):**
 - El Salvador (CNAD), Colombia (SFC), Brazil (CVM/BCB) market playbooks.
