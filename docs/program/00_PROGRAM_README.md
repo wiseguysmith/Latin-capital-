@@ -35,7 +35,14 @@ The original PRD/specs describe Horizon 2. The **Regulatory Strategy (`03`) gove
 | `02` | **Integrated Architecture** | How CRP ↔ capitalYA ↔ partner lender connect: data flows, decision rights, the Readiness Assessment Package, AML split |
 | `03` | **Regulatory Strategy (Costa Rica + 3 markets)** | **Governing compliance document.** Licensing, partner model, tokenization/securities, AML, data protection, tax, timelines, do-not-cross lines, counsel questions |
 | `04` | **Entity, Partner & Contract Structure** | Legal entities, partner-lender contract terms, fee flows, wind-down protocol, Horizon-2 structure |
+| `05` | **MVP Regulatory Boundary Statement** | The canonical, quotable "what capitalYA/CRP is and is not" — the anchor `06`–`09` cite |
+| `06` | **Partner Lender Portal & Integration Spec** | Portal-first surface (single lender), phased API, ownership-annotated state machine, settlement, disputes, SLAs |
+| `07` | **CRP ↔ capitalYA Data Exchange & Validation** | Signed event-driven integration and the **canonical JSON schemas** for the whole program |
+| `08` | **Fee Policy, Catalogue & Pricing Model** | Fee taxonomy, interest-cap rule, zero-rate configurable pricing; numbers deferred to pilot schedules |
+| `09` | **Costa Rica Regulatory Engagement Package** | CIF-first consultation plan, specific regulator questions, 5-stage submission sequence |
 | `sources/` | Archived founder inputs | Original PRD, Technical Specifications, and research brief — **vision context, not build specs** |
+
+**Tier-1 build set (`05`–`09`)** is the concrete MVP documentation: boundary → lender integration → data/schemas → fees → regulator engagement. Reflects the scope decisions of a **single pilot lender**, a **portal-first** surface, capitalYA holding **no funds** and making **no credit decision**.
 
 ## 4. Reading order by role
 
@@ -70,10 +77,15 @@ Carried from `03` §16 and CRP `02`:
 
 ## 7. Status & what's next
 
-This layer is the **first pass** of unifying the program. Known follow-on work (some inputs still incoming from the founder):
+The program layer (`00`–`04`) and the **Tier-1 MVP build set (`05`–`09`)** are complete: boundary statement, partner-lender portal/integration spec, CRP↔capitalYA data exchange + canonical schemas, fee policy/pricing model, and the Costa Rica regulatory engagement package.
 
-- Partner-lender integration spec (API/KYC handoff/settlement SLAs) — highest-risk gap for launch.
-- Locked fee/pricing schedule (currently ranges).
-- Sandbox/CIF consultation package for regulators.
-- Deeper market playbooks for El Salvador (CNAD), Colombia (SFC), Brazil (CVM/BCB).
-- Optional: reframing pointers inside the CRP foundation docs (`00/01/02/10`) once this layer is validated.
+**Tier-2 (after the integration model is fixed with the partner):**
+- Partner-lender agreement; borrower disclosures; CRP assessment agreement.
+- Data-processing & consent documents; AML escalation procedure; complaint/dispute SOP.
+- Lender-failure & backup-servicing plan; **Pilot Fee Schedule v1.0** (the actual numbers) and Partner Commercial Schedule.
+
+**Background only (must not delay the Costa Rica MVP):**
+- El Salvador (CNAD), Colombia (SFC), Brazil (CVM/BCB) market playbooks.
+- Investor messaging; competitive landscape; public token economics.
+
+**Deferred until Horizon 2 is authorized:** Investor Waterfall Specification; tokenization/oracle rails.
