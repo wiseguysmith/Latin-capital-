@@ -48,6 +48,7 @@ The original PRD/specs describe Horizon 2. The **Regulatory Strategy (`03`) gove
 | `15` | **Complaint & Dispute SOP** | Routing matrix operationalized; acknowledgement/resolution flow; CRP appeal linkage |
 | `16` | **Lender-Failure & Backup-Servicing Plan** | Wind-down triggers/actions; backup servicer; what capitalYA may/may not do |
 | `17` | **Pilot Fee Schedule v1.0 (Template)** | Number-free until partner deal + cap test + tax opinion; instantiates `08`/`07` |
+| `18` | **Partner Commercial Schedule (Template)** | Negotiated lender-side economics — contract annex to `10`; boundary-constrained; filled at signing |
 | `sources/` | Archived founder inputs | Original PRD, Technical Specifications, and research brief — **vision context, not build specs** |
 
 **Tier-1 build set (`05`–`09`)** is the concrete MVP documentation: boundary → lender integration → data/schemas → fees → regulator engagement. Reflects the scope decisions of a **single pilot lender**, a **portal-first** surface, capitalYA holding **no funds** and making **no credit decision**.
@@ -89,7 +90,7 @@ Carried from `03` §16 and CRP `02`:
 
 The program layer (`00`–`04`) and the **Tier-1 MVP build set (`05`–`09`)** are complete: boundary statement, partner-lender portal/integration spec, CRP↔capitalYA data exchange + canonical schemas, fee policy/pricing model, and the Costa Rica regulatory engagement package.
 
-**Tier-2 (`10`–`17`) — drafted as working templates.** Now require external inputs to finalize: partner negotiation (term sheet → definitive agreement via counsel), Costa Rican counsel review of all agreements/disclosures, certified Spanish drafting, PRODHAB analysis, and the interest-cap test + tax opinion before the Pilot Fee Schedule takes real numbers. Still outstanding as a distinct artifact: the **Partner Commercial Schedule** (negotiated lender economics), produced alongside `17` once the partner deal is set.
+**Tier-2 (`10`–`18`) — drafted as working templates, now complete as a set.** All require external inputs to finalize: partner negotiation (term sheet → definitive agreement via counsel), Costa Rican counsel review of all agreements/disclosures, certified Spanish drafting, PRODHAB analysis, and the interest-cap test + tax opinion before `17`/`18` take real numbers. **The documentation program has no remaining internal blockers — every open item now waits on a real-world counterpart: counsel, the partner lender, or a regulator.**
 
 **Background only (must not delay the Costa Rica MVP):**
 - El Salvador (CNAD), Colombia (SFC), Brazil (CVM/BCB) market playbooks.
