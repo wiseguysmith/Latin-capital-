@@ -12,6 +12,8 @@
 | Approval required | Product owner sign-off on the suite as a whole |
 | Last updated | 2026-07-16 |
 
+> **Program context (added 2026-07-19).** The Capital Readiness Platform is the **assessment layer of the broader capitalYA program** — a partner-originated SME lending + capital-readiness business. For how CRP fits with the capitalYA platform, the licensed partner lender, and the governing regulatory strategy, read `../program/00_PROGRAM_README.md` first (start with `../program/01_CAPITALYA_PROGRAM_BRIEF.md`). Nothing in this suite is contradicted by that program layer — CRP's assessment-only, not-a-lender, human-approved boundaries are exactly what the program requires. Where a *near-term regulatory or structural* question arises, `../program/03_REGULATORY_STRATEGY_COSTA_RICA.md` governs.
+
 ## 1. What this platform is
 
 A digital operating system that determines **how prepared a business is to receive institutional or private capital**, initially in Costa Rica (then Panama and El Salvador), for private-debt transactions of roughly USD $500k–$2M. The platform organizes, analyzes, verifies, scores, explains, and packages evidence so borrowers become more prepared and capital providers review opportunities more efficiently.
