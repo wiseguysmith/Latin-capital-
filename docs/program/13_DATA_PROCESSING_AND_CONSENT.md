@@ -19,6 +19,7 @@ Provided **before** collection, in clear Spanish (`03_...` §9.1): the existence
 ## 2. Consent (express, precise, recorded)
 
 - Consent is **express, informed, and scoped**; captured and stored per the consent schema (`07` §4.4) with scope, purpose, timestamp, language, and expiry.
+- **Locked UI requirement (`21` D-P3):** the *Consentimiento Informado* is a mandatory, **non-pre-checked** tick-box form in Spanish; each scope is a separate unchecked box; the US-cloud transmission/processing/storage disclosure is explicit in the consent text itself, not only in the linked notice.
 - **International-transfer consent is separate and explicit** — required for US-cloud processing; identifies recipient categories and processing countries (`03_...` §9.1). Transfer without valid consent is a serious violation.
 - Consent is **withdrawable**; withdrawal revokes active document links (`06` §7) and triggers retention/deletion handling (§6).
 - Sharing with a lender is a **distinct consent scope** (`share_with_lender:[LENDER]`); a lender sees only the consented scope for the consented purpose.
@@ -35,7 +36,7 @@ US cloud is **permitted** (no general CR localization mandate) when structured w
 
 ## 5. PRODHAB registration
 
-Databases administered for distribution, diffusion, or commercialization must be registered with PRODHAB (Ley 8968 Art. 21). Whether CRP's/capitalYA's specific databases require registration is confirmed from their exact use and sharing model — **counsel analysis required** (`03_...` §9.1, §17 Q13).
+Databases administered for distribution, diffusion, or commercialization must be registered with PRODHAB (Ley 8968 Art. 21). **Locked decision (`21` D-P3): formal PRODHAB registration filings are executed upfront in San José, concurrent with Phase 1 entity incorporation** — not deferred pending analysis. Counsel confirms *which* databases and filing content (`03_...` §9.1, §17 Q13), but the posture is register-first, not analyze-first.
 
 ## 6. Retention, deletion & data-subject rights
 

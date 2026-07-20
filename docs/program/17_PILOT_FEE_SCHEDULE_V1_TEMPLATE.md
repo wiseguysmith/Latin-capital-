@@ -20,7 +20,7 @@ This schedule holds the **actual pilot numbers**. Everything structural is alrea
 
 - [ ] Partner commercial terms agreed (`10` §5).
 - [ ] Each fee's `deduct_from_proceeds = false` for capitalYA fees (`08` §5).
-- [ ] All-in cost (interest + borrower-paid fees) tested against the **current BCCR cap** for the currency and semester (`08` §4).
+- [ ] All-in cost (lender interest + lender's borrower-facing charges; no capitalYA/CRP fees per `21` D-P1) tested against the **current BCCR cap** for the currency and semester (`08` §4); counsel's Law 9859 anti-evasion confirmation on file.
 - [ ] Transaction-level **tax opinion** obtained (VAT/withholding) (`03_...` §11).
 - [ ] Consumer disclosure of all fees prepared (`11` §2).
 - [ ] Finance + Compliance sign-off.
@@ -29,10 +29,10 @@ This schedule holds the **actual pilot numbers**. Everything structural is alrea
 
 | Fee code | Charged by | Payer | Method | Base | Rate/Amount | Min | Max | Currency | Earned event | Deduct from proceeds | Counts toward cap |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| `CRP_ASSESSMENT_FEE` | CRP | `[borrower/lender]` | flat | n/a | `[TBD $2,500–5,000]` | — | — | `[USD/CRC]` | assessment_complete | false | `[if borrower-paid: yes]` |
-| `CAPITALYA_PLATFORM_FEE` | capitalYA | `[lender/borrower]` | `[subscription/per_application]` | n/a or per-app | `[TBD]` | `[TBD]` | `[TBD]` | `[per model]` | false | `[likely no]` |
+| `CRP_ASSESSMENT_FEE` | CRP | **lender** (B2B, `21` D-P1) | flat | n/a | `[TBD $2,500–5,000]` | — | — | `[USD/CRC]` | assessment_complete | false | no |
+| `CAPITALYA_PLATFORM_FEE` | capitalYA | **lender** (B2B) | `[subscription/per_application]` | n/a or per-app | `[TBD]` | `[TBD]` | `[TBD]` | `[per model]` | false | no |
 | `CAPITALYA_SETUP_FEE` | capitalYA | lender | flat | n/a | `[TBD]` | — | — | `[USD]` | integration_complete | false | no |
-| `CAPITALYA_SUCCESS_FEE` | capitalYA | `[borrower/lender]` | percentage | funded_principal | `[TBD bps]` | `[TBD]` | `[TBD]` | `[USD/CRC]` | loan_disbursed | false | `[if borrower-paid: yes]` |
+| `CAPITALYA_SUCCESS_FEE` | capitalYA | **lender** (B2B) | percentage | funded_principal | `[TBD bps]` | `[TBD]` | `[TBD]` | `[USD/CRC]` | loan_disbursed | false | no |
 | `CAPITALYA_SERVICING_TECH_FEE` | capitalYA | lender | percentage | `[original/outstanding]` principal | `[TBD bps]` | — | — | `[USD/CRC]` | servicing_period | false | no |
 
 Lender's own interest and origination fee are **set and disclosed by the lender** and are **not** in this schedule (`08` §3.4).
@@ -51,10 +51,10 @@ Each row above is stored as a config object (`07` §4.6). Example (still zero-ra
   "minimum_amount": null,
   "maximum_amount": null,
   "currency": "USD",
-  "payer": "borrower",
+  "payer": "lender",
   "earned_event": "loan_disbursed",
   "deduct_from_proceeds": false,
-  "counts_toward_interest_cap": true,
+  "counts_toward_interest_cap": false,
   "effective_from": "[pilot start]"
 }
 ```
@@ -69,8 +69,8 @@ When rates are agreed: set `rate_basis_points`/amounts, `effective_from`, bump `
 | Currency / semester | `[CRC or USD / 2026-H2]` |
 | Applicable BCCR cap (effective annual) | `[TBD — check BCCR Jan/Jul publication]` |
 | Lender nominal + effective rate | `[TBD]` |
-| Borrower-paid fees counted | `[sum of CRP + success fee if borrower-paid]` |
-| **All-in effective cost** | `[computed]` |
+| Borrower-paid platform fees counted | **None — per `21` D-P1 no mandatory capitalYA/CRP fee is borrower-paid; count only the lender's own borrower-facing charges** |
+| **All-in effective cost** | `[computed — lender interest + lender charges]` |
 | Within cap? | `[YES/NO — must be YES to launch]` |
 
 ## 6. Change control

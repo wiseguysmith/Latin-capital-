@@ -45,6 +45,7 @@ Consolidated from `03_...` §16 and CRP `02` §2 — this is the enforceable pro
 13. Present CRP's score as regulatory approval, a public rating, or a substitute for the lender's underwriting.
 14. Allow the Cayman foundation to solicit Costa Rican investors or contract with CR retail borrowers.
 15. Treat ERC-3643 (or any token standard) as legal compliance in itself.
+16. Charge any **mandatory transactional or technology fee to the end borrower** for access to credit (Phase 1/2 — all platform economics are billed B2B to the lender; the borrower faces only the lender's disclosed rate and charges; per `21` D-P1, Law 9859 alignment).
 
 ## 4. What capitalYA / CRP MAY do
 

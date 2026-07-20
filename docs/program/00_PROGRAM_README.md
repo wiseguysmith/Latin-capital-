@@ -51,6 +51,7 @@ The original PRD/specs describe Horizon 2. The **Regulatory Strategy (`03`) gove
 | `18` | **Partner Commercial Schedule (Template)** | Negotiated lender-side economics — contract annex to `10`; boundary-constrained; filled at signing |
 | `19` | **Lender Portal Screen Specification** | SCR-D series (11 screens) extending the CRP screen registry — the lender decisioning portal mapped to the `06` state machine |
 | `20` | **Build-Phase Plan** | Engineering roadmap: recommended stack, repo structure, boundary-as-code controls, phased sequence to the pilot (thin manual-assisted slice first) |
+| `21` | **Strategic Update & Decision Record (Jul 2026)** | Partner memo adoption: **B2B-only fee billing (D-P1)**, automated Ley 9244 assignment notice (D-P2), upfront PRODHAB + rigid consent (D-P3); Phase 3 offshore-fund model **flagged, not adopted** |
 | `briefs/` | Working briefs | Consistency review (PASS), counsel engagement brief, lender pitch one-pager |
 | `mockups/` | Clickable prototypes | `lender-portal-mockup.html` (SCR-D core flow, role-gated boundary) + `borrower-intake-mockup.html` (the same application `cap_app_456` from the SME's side: intake → consent → documents → score reveal → lender decision) |
 | `sources/` | Archived founder inputs | Original PRD, Technical Specifications, and research brief — **vision context, not build specs** |

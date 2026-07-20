@@ -57,7 +57,8 @@ Per `05`: **the Lender is the sole originator and creditor.** capitalYA provides
 
 - **capitalYA platform/workflow fee:** `[structure: subscription / per-application / setup]`, `[amount TBD]`.
 - **capitalYA success fee:** `[% of funded_principal TBD]`, earned on `loan_disbursed`, disclosed, **separated from interest income**, **never deducted from proceeds** (`08` §5).
-- **CRP assessment fee:** flat `[$2,500–$5,000 TBD]`, paid by `[borrower/lender]`, earned on assessment completion, not contingent on financing.
+- **CRP assessment fee:** flat `[$2,500–$5,000 TBD]`, **paid by the Lender (B2B, per `21` D-P1 — never the borrower)**, earned on assessment completion, not contingent on financing.
+- **B2B-only rule:** all mandatory capitalYA/CRP fees are billed to the Lender by inter-corporate invoice; the borrower faces only the Lender's disclosed rate and the Lender's own charges (Law 9859 alignment).
 - **Servicing-technology fee:** `[base: original/outstanding principal TBD]`.
 - **Lender's own charges** (interest, origination fee): set and disclosed by the Lender; **not** capitalYA revenue.
 - **Interest-cap compliance:** all-in cost tested against BCCR caps; fees not used to evade caps (`08` §4).

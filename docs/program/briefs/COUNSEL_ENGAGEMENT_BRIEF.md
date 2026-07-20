@@ -39,6 +39,11 @@ Target: a **closed Costa Rica pilot** (limited borrowers, invoice factoring / wo
 
 **Priority for the pilot: Q1–Q4, Q8, Q11–Q15, Q17.** Future-phase questions (Q5–Q7, Q9–Q10, Q18) may follow on a second track.
 
+**Sharpened additions (July 2026 partner decisions — see `../21`):**
+
+19. **Law 9859 anti-evasion:** under the locked B2B-only fee model (no mandatory borrower-facing platform fees; all capitalYA/CRP fees billed to the lender), confirm that lender-paid platform fees absorbed into the lender's pricing are **not** recharacterized into the borrower's effective-rate cap test, and that no additional borrower disclosure duty arises for pass-through economics. *(Pilot-blocking.)*
+20. **Ley 9244 assignment notice:** exact form, content, signature, and delivery-evidence requirements for a valid automated *notificación de cesión* dispatched in the lender's name upon invoice financing; whether registry filing is additionally required per receivable type. *(Pilot-blocking for factoring.)*
+
 ## 3. Documents needing your review (and what "done" means)
 
 | Doc | Deliverable from counsel |

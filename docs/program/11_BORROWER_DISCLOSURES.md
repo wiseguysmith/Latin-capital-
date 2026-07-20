@@ -30,7 +30,7 @@ Presented by/for the **Lender** before the borrower commits (`03_...` §10.1):
 | 3 | Currency (CRC/USD) |
 | 4 | **Nominal and effective** interest rates |
 | 5 | Total cost of credit (all-in, including fees) |
-| 6 | Fees and commissions (itemized — incl. capitalYA/CRP fees where borrower-paid) |
+| 6 | Fees and commissions (itemized — **the lender's own charges only**; per `21` D-P1 capitalYA/CRP charge no mandatory fee to the borrower, and the disclosure states that the lender's rate and charges are the borrower's entire cost) |
 | 7 | Payment schedule |
 | 8 | Late charges |
 | 9 | Collateral (if any) |

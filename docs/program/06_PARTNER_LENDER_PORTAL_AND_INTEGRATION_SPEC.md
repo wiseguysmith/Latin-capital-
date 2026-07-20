@@ -148,6 +148,16 @@ Because reconciliation and any programmatic payment events can be re-sent:
 - Portal-entered actions are idempotent-by-UI but still audit-logged.
 - **No reconciliation or payment data ever flows back into CRP scoring** (`05` §3.10; CRP `02` P10).
 
+### 8.2 Factoring assignment notice — automated perfection (Ley 9244)
+
+Per `21` D-P2: the moment the lender **accepts and finances an invoice** (state `disbursed` recorded for a factoring product), the platform **programmatically generates and dispatches a digitally signed notice of assignment (notificación de cesión) to the underlying corporate debtor**:
+
+- The notice is issued **in the lender's name** — the lender is the assignee; capitalYA is dispatch infrastructure only.
+- Legal basis: Ley de Garantías Mobiliarias (Law 9244) — formal debtor notification perfects the assignment so payments cannot legally be redirected back to the SME.
+- Dispatch is automatic on the `disbursement.recorded` event, emits `assignment.notice_dispatched` (`07` §4.5), stores the signed notice + delivery evidence against the loan record, and is a full audit event.
+- Failure to dispatch is a **blocking incident** (perfection at risk), alerting both capitalYA ops and the lender.
+- Notice form, content, signature, and delivery-evidence requirements — and any additional registry filing per receivable type — are **counsel-confirmed** before the pilot (`03_...` §17 Q8; `briefs/COUNSEL_ENGAGEMENT_BRIEF`).
+
 ## 9. Dispute & complaint routing (ownership matrix)
 
 Prevents capitalYA from accidentally owning a regulated credit matter, and prevents the lender from dumping everything on capitalYA:

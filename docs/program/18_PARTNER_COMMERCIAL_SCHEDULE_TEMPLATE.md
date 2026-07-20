@@ -45,12 +45,14 @@ Whatever is negotiated, the deal must stay inside the safe-fee perimeter (`03_..
 | Origination-support / workflow fee | `[per funded loan / monthly]` | `[TBD]` | `[TBD]` | `[TBD]` |
 | Servicing-technology fee | `[bps on original/outstanding principal]` | `[TBD]` | `[monthly arrears]` | `[TBD]` |
 
-### 3.2 Fees payable by the Borrower (recorded here for consistency with `17`)
+### 3.2 Fees payable by the Borrower — **none** (per `21` D-P1)
+
+capitalYA and CRP charge **no mandatory fee to the borrower**. The CRP assessment fee and the capitalYA success fee are billed **to the Lender** and appear in §3.1:
 
 | Item | Payee | Amount/Rate | Collected how |
 |---|---|---|---|
-| CRP assessment fee | CRP | `[TBD flat]` | invoiced by CRP — **never from loan proceeds** |
-| capitalYA success fee | capitalYA | `[TBD bps of funded_principal]` | invoiced separately — **never from loan proceeds** |
+| CRP assessment fee (per pipeline assessment) | CRP | `[TBD flat]` | B2B invoice to Lender — **never from loan proceeds, never to the borrower** |
+| capitalYA success fee | capitalYA | `[TBD bps of funded_principal]` | B2B invoice to Lender — **never from loan proceeds, never to the borrower** |
 
 ### 3.3 Lender's own charges (informational — lender-set)
 

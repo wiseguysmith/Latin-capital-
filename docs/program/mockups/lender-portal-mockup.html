@@ -375,9 +375,9 @@
               <tbody>
                 <tr><td>Lender effective interest</td><td class="num" id="c-int">14.2%</td><td>lender revenue</td></tr>
                 <tr><td>Lender origination fee (annualized)</td><td class="num" id="c-ofee">2.0%</td><td>lender revenue</td></tr>
-                <tr><td>capitalYA success fee (annualized)</td><td class="num">1.1%</td><td>billed separately — <b>not</b> from proceeds</td></tr>
-                <tr><td>CRP assessment fee (flat, annualized eq.)</td><td class="num">0.9%</td><td>billed separately — <b>not</b> from proceeds</td></tr>
-                <tr><th>All-in tested against cap</th><th class="num" id="c-total">18.2%</th><th>BCCR cap (USD · 2026-H2): <span class="num">21.3%*</span></th></tr>
+                <tr><td>capitalYA success fee</td><td class="num">B2B</td><td>billed to Financiera del Valle — <b>excluded</b> from the borrower's all-in cost (no borrower-facing platform fees)</td></tr>
+                <tr><td>CRP assessment fee (flat)</td><td class="num">B2B</td><td>billed to Financiera del Valle — <b>excluded</b> from the borrower's all-in cost</td></tr>
+                <tr><th>Borrower all-in tested against cap</th><th class="num" id="c-total">16.2%</th><th>BCCR cap (USD · 2026-H2): <span class="num">21.3%*</span></th></tr>
               </tbody>
             </table></div>
             <div class="footer-note">*Illustrative cap figure for the mockup. Production reads the BCCR-published cap for the contract's currency and semester. Fees cannot be used to evade the cap — the all-in total is what is tested.</div>
@@ -517,8 +517,8 @@
   function capCheck(){
     var rate = parseFloat(document.getElementById('rate').value)||0;
     var ofee = parseFloat(document.getElementById('ofee').value)||0;
-    var platform = 1.1 + 0.9; // capitalYA success + CRP assessment, annualized equivalents (illustrative)
-    var total = rate + ofee + platform;
+    // capitalYA/CRP fees are billed B2B to the lender and excluded from the borrower's all-in cost
+    var total = rate + ofee;
     var cap = 21.3;
     document.getElementById('c-int').textContent  = rate.toFixed(1)+'%';
     document.getElementById('c-ofee').textContent = ofee.toFixed(1)+'%';

@@ -36,7 +36,7 @@ CRP is **not** a rating agency: it does not publish ratings for investment solic
 
 ## 3. Fee
 
-- **Flat fee** `[$2,500–$5,000 TBD]` for document analysis, readiness review, and remediation planning.
+- **Flat fee** `[$2,500–$5,000 TBD]` for document analysis, readiness review, and remediation planning — **billed B2B to the partner lender** under the commercial schedule (`18`), never to the borrower (`21` D-P1). The borrower remains the assessment subject and consent-giver; the lender is the paying client for pipeline assessments.
 - **Earned on assessment completion**, not contingent on whether financing closes (`03_...` §5.2).
 - **Refund policy:** clear rules if the applicant withdraws before the assessment is performed (`08` §3.1).
 - Fee is **not** deducted from any loan proceeds (`08` §5).

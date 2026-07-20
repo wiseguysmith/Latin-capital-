@@ -183,7 +183,7 @@ Cross-border/US-cloud consent is explicit (`03_...` §9.1; CRP D-23). Withdrawal
 }
 ```
 
-Event types (MVP): `assessment.approved`, `assessment.revised`, `application.ready_for_lender_review`, `decision.recorded`, `terms.recorded`, `disbursement.recorded`, `servicing.event`. All state-changing consumers are **idempotent on `idempotency_key`** (`06` §8.1).
+Event types (MVP): `assessment.approved`, `assessment.revised`, `application.ready_for_lender_review`, `decision.recorded`, `terms.recorded`, `disbursement.recorded`, `assignment.notice_dispatched` (factoring perfection — carries notice hash + delivery evidence, `06` §8.2), `servicing.event`. All state-changing consumers are **idempotent on `idempotency_key`** (`06` §8.1).
 
 ### 4.6 Fee configuration — canonical shape (used by `08`)
 
@@ -199,15 +199,15 @@ Kept here per the single-source rule; `08` owns the **policy and catalogue** and
   "minimum_amount": null,
   "maximum_amount": null,
   "currency": "USD",
-  "payer": "borrower",
+  "payer": "lender",
   "earned_event": "loan_disbursed",
   "deduct_from_proceeds": false,
-  "counts_toward_interest_cap": true,
+  "counts_toward_interest_cap": false,
   "effective_from": "2026-09-01"
 }
 ```
 
-`rate_basis_points: 0` is deliberate — the schema is locked before the commercial rate. For any capitalYA fee, `deduct_from_proceeds` is **forced `false`** (`08`); `counts_toward_interest_cap` supports the all-in cap test (`08`).
+`rate_basis_points: 0` is deliberate — the schema is locked before the commercial rate. Per `21` D-P1 (B2B-only billing): for any **mandatory** capitalYA/CRP fee, `payer` is constrained to `"lender"` — `"borrower"` is rejected by schema validation in Phase 1/2; `deduct_from_proceeds` is **forced `false`** (`08`); `counts_toward_interest_cap` defaults `false` for lender-paid platform fees but the field is retained — the borrower-side cap test covers the lender's own charges (`08` §4), and counsel must confirm the anti-evasion treatment.
 
 ## 5. Oracle & blockchain design (deferred; no PII ever)
 

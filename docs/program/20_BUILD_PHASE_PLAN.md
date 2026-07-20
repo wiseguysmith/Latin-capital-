@@ -134,6 +134,8 @@ The irreducible software; assessment is **analyst-operated** (SOP + admin toolin
 - **Lender portal** (`web-lender`): SCR-D core flow (`19`) — queue → RAP viewer → KYC review → underwriting → **decision/terms/disbursement recording** (lender-only, audited) → servicing/reconciliation import (idempotent).
 - **Consent gate + handoff** in the API; **boundary controls from §7 wired and tested.**
 - **Reconciliation import** (CSV upload, idempotent) — no live lender API needed.
+- **Assignment-notice dispatch** (`06` §8.2): on `disbursement.recorded` for factoring, generate + digitally sign + dispatch the *notificación de cesión* in the lender's name, store delivery evidence, emit `assignment.notice_dispatched`; failure = blocking incident. Statutory (Ley 9244) — pilot-required, counsel-approved template.
+- **Fee-config validation**: `payer:"borrower"` rejected for mandatory fees (`21` D-P1) — part of the §7 boundary controls.
 
 **Exit = the pilot launch gate:** a borrower can apply and consent; an analyst can produce a signed, human-approved RAP; the lender can review and record its own decisions through the portal; funds move entirely outside the system; every step is audited; §7 controls pass their tests.
 

@@ -47,9 +47,9 @@ Types and formulas; **numbers live in the Pilot Fee Schedule (Tier 2)**, not her
 
 | Fee | Charged by | Paid by | Base | Earned event | Risk posture (`03_...` §4.4) |
 |---|---|---|---|---|---|
-| **CRP assessment fee** | CRP | Borrower (or lender, per deal) | **Flat** | Assessment completion | Green/Yellow — flat, **not** contingent on financing |
-| **capitalYA platform fee** | capitalYA | Lender (and/or borrower) | Subscription / per-application / setup / workflow | Per model | Green/Yellow — fixed, disclosed |
-| **capitalYA success fee** | capitalYA | Borrower or lender (per structure) | % of `funded_principal` (documented introduction) | `loan_disbursed` | Yellow — disclosed, separated from interest |
+| **CRP assessment fee** | CRP | **Lender (B2B — never the borrower, per `21` D-P1)** | **Flat** | Assessment completion | Green/Yellow — flat, **not** contingent on financing |
+| **capitalYA platform fee** | capitalYA | **Lender (B2B)** | Subscription / per-application / setup / workflow | Per model | Green/Yellow — fixed, disclosed |
+| **capitalYA success fee** | capitalYA | **Lender (B2B)** | % of `funded_principal` (documented introduction) | `loan_disbursed` | Yellow — disclosed, separated from interest |
 | **Servicing-technology fee** | capitalYA | Lender | Original or outstanding principal (defined per deal) | Servicing period | Green/Yellow — technology only |
 | **Lender origination fee** | **Lender** | Borrower | Lender-defined | Lender-defined | Lender's own charge — **not capitalYA revenue** unless legal/tax structure explicitly permits |
 
@@ -73,9 +73,9 @@ The lender determines and discloses its own lending charges. capitalYA does **no
 
 Costa Rican law imposes maximum annual rates and provides that **fees and commissions cannot be used to evade the caps** (`03_...` §10.1). Therefore:
 
-- The **all-in cost of credit** — lender interest **plus** every fee that functions as a cost of borrowing (CRP assessment fee where borrower-paid, capitalYA success fee, lender origination fee) — must be tested against the applicable BCCR cap for the currency and semester of the contract.
-- Each fee carries `counts_toward_interest_cap` in its config (`07` §4.6). Fees that count are summed into the all-in test.
-- capitalYA/CRP fees must be **defensibly for services rendered**, not disguised interest. Where a borrower-paid fee could be recharacterized as interest, it is included in the cap test by default.
+- **B2B-only billing (per `21` D-P1) is the primary mitigation:** capitalYA/CRP charge **no mandatory fee to the borrower**, so the borrower-side cap test covers the **lender's interest plus the lender's own charges** (origination fee, late charges, etc.). Partner-reported cap levels ≈30.11% USD / ≈36.48% CRC for standard corporate loans — verify per semester against the BCCR publication.
+- Each fee carries `counts_toward_interest_cap` in its config (`07` §4.6). Lender-paid platform fees default `false`; every lender-charged borrower-facing item counts.
+- capitalYA/CRP fees must still be **defensibly for services rendered**, not disguised interest. **Counsel must confirm the Law 9859 anti-evasion treatment**: that lender-paid platform fees, absorbed into the lender's pricing, are not recharacterized into the borrower's effective-rate test (`briefs/COUNSEL_ENGAGEMENT_BRIEF`).
 - The cap check runs before an offer is presented; a configuration or offer that would breach the cap is blocked. Actual caps are checked per currency/semester (BCCR publishes in January and July).
 
 ## 5. Funds-flow constraint on fees
@@ -98,10 +98,10 @@ Fees are stored as **versioned configuration** using the canonical schema in `07
   "minimum_amount": null,
   "maximum_amount": null,
   "currency": "USD",
-  "payer": "borrower",
+  "payer": "lender",
   "earned_event": "loan_disbursed",
   "deduct_from_proceeds": false,
-  "counts_toward_interest_cap": true,
+  "counts_toward_interest_cap": false,
   "effective_from": "2026-09-01"
 }
 ```
