@@ -1,0 +1,559 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>capitalYA — Lender Portal Mockup</title>
+<style>
+  :root{
+    --bg:#F6F8F7; --panel:#FFFFFF; --ink:#1E2523; --ink-2:#5A6662; --line:#DCE3E0;
+    --accent:#0E6B4F; --accent-soft:#E3F0EA; --lender:#33526E; --lender-soft:#E7EDF3;
+    --ok:#2E7D4F; --warn:#A96A0E; --warn-soft:#F7EDDC; --crit:#A8332E; --crit-soft:#F6E4E3;
+    --chip:#EEF2F0; --shadow:0 1px 3px rgba(30,37,35,.08),0 4px 14px rgba(30,37,35,.06);
+    --mono:"SF Mono","Cascadia Code",ui-monospace,Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){:root{
+    --bg:#131715; --panel:#1B211E; --ink:#E6EBE8; --ink-2:#93A09A; --line:#2B332F;
+    --accent:#4CAF8B; --accent-soft:#1E3A30; --lender:#7FA3C4; --lender-soft:#22303D;
+    --ok:#5CB884; --warn:#D9A04B; --warn-soft:#3A2F1B; --crit:#D96C66; --crit-soft:#3D2221;
+    --chip:#242C28; --shadow:0 1px 3px rgba(0,0,0,.4);
+  }}
+  :root[data-theme="dark"]{
+    --bg:#131715; --panel:#1B211E; --ink:#E6EBE8; --ink-2:#93A09A; --line:#2B332F;
+    --accent:#4CAF8B; --accent-soft:#1E3A30; --lender:#7FA3C4; --lender-soft:#22303D;
+    --ok:#5CB884; --warn:#D9A04B; --warn-soft:#3A2F1B; --crit:#D96C66; --crit-soft:#3D2221;
+    --chip:#242C28; --shadow:0 1px 3px rgba(0,0,0,.4);
+  }
+  :root[data-theme="light"]{
+    --bg:#F6F8F7; --panel:#FFFFFF; --ink:#1E2523; --ink-2:#5A6662; --line:#DCE3E0;
+    --accent:#0E6B4F; --accent-soft:#E3F0EA; --lender:#33526E; --lender-soft:#E7EDF3;
+    --ok:#2E7D4F; --warn:#A96A0E; --warn-soft:#F7EDDC; --crit:#A8332E; --crit-soft:#F6E4E3;
+    --chip:#EEF2F0; --shadow:0 1px 3px rgba(30,37,35,.08),0 4px 14px rgba(30,37,35,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font:14px/1.5 "Segoe UI Variable Text","Seravek","Avenir Next",system-ui,sans-serif;}
+  .app{display:grid;grid-template-columns:216px 1fr;grid-template-rows:52px 1fr;min-height:100vh}
+  /* ---------- top bar ---------- */
+  .topbar{grid-column:1/3;display:flex;align-items:center;gap:14px;padding:0 16px;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+  .brand{display:flex;align-items:baseline;gap:8px;font-weight:700;font-size:15px}
+  .brand .ya{color:var(--accent)}
+  .brand .sub{font-weight:500;color:var(--ink-2);font-size:12px}
+  .mock-tag{font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:var(--warn-soft);color:var(--warn);border-radius:3px;padding:2px 6px;font-weight:700}
+  .spacer{flex:1}
+  .role-switch{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-2)}
+  .role-switch select{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:4px 8px}
+  .lender-id{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--lender);font-weight:600;border:1px solid var(--line);border-radius:6px;padding:4px 10px;background:var(--lender-soft)}
+  /* ---------- nav ---------- */
+  .nav{background:var(--panel);border-right:1px solid var(--line);padding:14px 0}
+  .nav h2{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin:14px 16px 6px;font-weight:700}
+  .nav button{display:flex;width:100%;align-items:center;gap:8px;border:0;background:none;color:var(--ink);font:inherit;text-align:left;padding:7px 16px;cursor:pointer;border-left:3px solid transparent}
+  .nav button:hover{background:var(--chip)}
+  .nav button.active{border-left-color:var(--accent);background:var(--accent-soft);font-weight:600}
+  .nav .scr{font-size:10px;color:var(--ink-2);font-family:var(--mono)}
+  /* ---------- main ---------- */
+  .main{padding:20px 24px 60px;max-width:1060px}
+  section.screen{display:none}
+  section.screen.on{display:block}
+  h1{font-size:19px;margin:0 0 2px;text-wrap:balance}
+  .crumb{font-size:11px;color:var(--ink-2);font-family:var(--mono);margin-bottom:14px}
+  /* ---------- shared bits ---------- */
+  .banner{display:flex;gap:10px;align-items:flex-start;border-radius:8px;padding:10px 14px;font-size:12.5px;margin:0 0 14px}
+  .banner.lender{background:var(--lender-soft);color:var(--lender);border:1px solid var(--lender);font-weight:600}
+  .banner.limit{background:var(--warn-soft);border:1px solid var(--warn);color:var(--ink)}
+  .banner.crit{background:var(--crit-soft);border:1px solid var(--crit);color:var(--ink)}
+  .banner.ok{background:var(--accent-soft);border:1px solid var(--accent);color:var(--ink)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:16px;margin-bottom:16px}
+  .card h3{margin:0 0 10px;font-size:13px;letter-spacing:.02em}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:900px){.grid2{grid-template-columns:1fr}.app{grid-template-columns:64px 1fr}.nav .lbl{display:none}}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-2);text-align:left;font-weight:700;padding:6px 10px;border-bottom:1px solid var(--line)}
+  td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr.rowlink{cursor:pointer}
+  tr.rowlink:hover td{background:var(--chip)}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .tbl-wrap{overflow-x:auto}
+  .pill{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.04em;border-radius:999px;padding:2px 9px;white-space:nowrap}
+  .p-ready{background:var(--accent-soft);color:var(--accent)}
+  .p-kyc{background:var(--lender-soft);color:var(--lender)}
+  .p-uw{background:var(--lender-soft);color:var(--lender)}
+  .p-info{background:var(--warn-soft);color:var(--warn)}
+  .p-active{background:var(--accent-soft);color:var(--accent)}
+  .p-delq{background:var(--crit-soft);color:var(--crit)}
+  .p-ok{background:var(--accent-soft);color:var(--ok)}
+  .p-flag{background:var(--crit-soft);color:var(--crit)}
+  .p-warn{background:var(--warn-soft);color:var(--warn)}
+  .p-neutral{background:var(--chip);color:var(--ink-2)}
+  .sla{font-size:11px;font-family:var(--mono)}
+  .sla.late{color:var(--crit);font-weight:700}
+  .btn{font:inherit;font-weight:600;border-radius:7px;padding:8px 14px;cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+  .btn:hover{background:var(--chip)}
+  .btn:focus-visible,.nav button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn.primary:hover{filter:brightness(1.08)}
+  .btn.lenderact{background:var(--lender);border-color:var(--lender);color:#fff}
+  .btn.lenderact:hover{filter:brightness(1.1)}
+  .btn.danger{background:var(--crit);border-color:var(--crit);color:#fff}
+  .btn[disabled]{opacity:.45;cursor:not-allowed}
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .kv{display:grid;grid-template-columns:170px 1fr;gap:4px 14px;font-size:13px}
+  .kv dt{color:var(--ink-2)}
+  .kv dd{margin:0}
+  .score-wrap{display:flex;gap:22px;align-items:center;margin:10px 0 4px}
+  .score-big{font-size:44px;font-weight:800;font-family:var(--mono);line-height:1;color:var(--accent)}
+  .score-band{font-size:12px;font-weight:700;color:var(--warn)}
+  .conf{font-size:12px;color:var(--ink-2)}
+  .conf b{font-family:var(--mono);color:var(--ink)}
+  .dim{display:grid;grid-template-columns:190px 1fr 46px 70px;gap:10px;align-items:center;font-size:12.5px;padding:5px 0}
+  .bar{height:7px;border-radius:4px;background:var(--chip);overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--accent)}
+  .conf-cell{font-family:var(--mono);font-size:11px;color:var(--ink-2)}
+  .flag-row{display:flex;gap:8px;align-items:center;font-size:12.5px;padding:4px 0}
+  .hidden-by-role{display:none !important}
+  .role-note{border:1px dashed var(--line);border-radius:8px;padding:12px 14px;font-size:12.5px;color:var(--ink-2);background:var(--chip)}
+  .timeline{list-style:none;margin:0;padding:0;font-size:12.5px}
+  .timeline li{display:flex;gap:10px;padding:5px 0;border-bottom:1px dashed var(--line)}
+  .timeline li:last-child{border-bottom:0}
+  .timeline .t{font-family:var(--mono);font-size:11px;color:var(--ink-2);min-width:118px}
+  .timeline .who{color:var(--ink-2)}
+  .field{margin-bottom:12px}
+  .field label{display:block;font-size:11.5px;font-weight:600;color:var(--ink-2);margin-bottom:4px}
+  .field input,.field select,.field textarea{font:inherit;color:var(--ink);width:100%;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:7px 10px}
+  .field textarea{min-height:64px;resize:vertical}
+  .capcheck{border-radius:8px;padding:12px 14px;font-size:13px;margin-top:10px}
+  .capcheck.pass{background:var(--accent-soft);border:1px solid var(--accent)}
+  .capcheck.fail{background:var(--crit-soft);border:1px solid var(--crit)}
+  .capcheck .num{font-weight:700}
+  dialog{border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);box-shadow:var(--shadow);max-width:520px;width:92%;padding:20px}
+  dialog::backdrop{background:rgba(10,14,12,.45)}
+  dialog h3{margin:0 0 8px}
+  .toast{position:fixed;bottom:18px;right:18px;background:var(--ink);color:var(--bg);border-radius:8px;padding:10px 16px;font-size:13px;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);transition:.25s;z-index:90;max-width:380px}
+  .toast.show{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){.toast{transition:none}}
+  .footer-note{font-size:11px;color:var(--ink-2);margin-top:26px;border-top:1px solid var(--line);padding-top:10px}
+  .checklist{list-style:none;margin:0;padding:0;font-size:13px}
+  .checklist li{display:flex;gap:8px;align-items:center;padding:5px 0}
+  .cond-done{color:var(--ok);font-weight:700}
+  .cond-open{color:var(--warn);font-weight:700}
+  code{font-family:var(--mono);font-size:12px;background:var(--chip);border-radius:4px;padding:1px 5px}
+</style>
+
+<div class="app">
+  <!-- ================= TOP BAR ================= -->
+  <div class="topbar">
+    <div class="brand">capital<span class="ya">YA</span> <span class="sub">Lender Portal</span></div>
+    <span class="mock-tag">Mockup · fake data</span>
+    <div class="spacer"></div>
+    <div class="role-switch">
+      <label for="role">Viewing as</label>
+      <select id="role" onchange="setRole(this.value)">
+        <option value="lender_underwriter">Lender — Underwriter (M. Jiménez)</option>
+        <option value="lender_admin">Lender — Admin (R. Solano)</option>
+        <option value="lender_kyc">Lender — KYC Officer (P. Araya)</option>
+        <option value="capitalya_ops">capitalYA — Ops (read-only)</option>
+      </select>
+    </div>
+    <div class="lender-id">◆ Financiera del Valle S.A. — lender of record</div>
+  </div>
+
+  <!-- ================= NAV ================= -->
+  <nav class="nav">
+    <h2>Workflow</h2>
+    <button data-scr="d1" class="active" onclick="go('d1',this)"><span class="scr">D1</span> <span class="lbl">Review queue</span></button>
+    <button data-scr="d2" onclick="go('d2',this)"><span class="scr">D2</span> <span class="lbl">Application &amp; RAP</span></button>
+    <button data-scr="d4" onclick="go('d4',this)"><span class="scr">D4</span> <span class="lbl">KYC review</span></button>
+    <button data-scr="d5" onclick="go('d5',this)"><span class="scr">D5</span> <span class="lbl">Underwriting</span></button>
+    <button data-scr="d6" onclick="go('d6',this)"><span class="scr">D6</span> <span class="lbl">Decision</span></button>
+    <button data-scr="d7" onclick="go('d7',this)"><span class="scr">D7</span> <span class="lbl">Offer &amp; terms</span></button>
+    <button data-scr="d9" onclick="go('d9',this)"><span class="scr">D9</span> <span class="lbl">Disbursement</span></button>
+    <button data-scr="d10" onclick="go('d10',this)"><span class="scr">D10</span> <span class="lbl">Servicing &amp; recon</span></button>
+    <h2>About</h2>
+    <button data-scr="about" onclick="go('about',this)"><span class="scr">i</span> <span class="lbl">Boundary demo</span></button>
+  </nav>
+
+  <!-- ================= MAIN ================= -->
+  <main class="main">
+
+    <!-- ========== D1 QUEUE ========== -->
+    <section class="screen on" id="scr-d1">
+      <h1>Review queue</h1>
+      <div class="crumb">SCR-D1 · Financiera del Valle S.A. · Tuesday 22 Sep 2026, 09:12</div>
+      <div class="card">
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Borrower</th><th>Product</th><th>Requested</th><th>Readiness band</th><th>State</th><th>Days in state</th><th>SLA</th></tr></thead>
+          <tbody>
+            <tr class="rowlink" onclick="go('d2',document.querySelector('[data-scr=d2]'))">
+              <td><b>Distribuidora Monteverde S.A.</b><br><span class="num" style="font-size:11px;color:var(--ink-2)">cap_app_456</span></td>
+              <td>Invoice factoring</td><td class="num">$18,400</td>
+              <td><span class="pill p-warn">Conditionally ready</span></td>
+              <td><span class="pill p-uw">Lender underwriting</span></td>
+              <td class="num">1</td><td class="sla">2d target</td>
+            </tr>
+            <tr class="rowlink" onclick="toast('Mockup: only cap_app_456 is clickable in this demo.')">
+              <td><b>Café Turrialba Export S.A.</b><br><span class="num" style="font-size:11px;color:var(--ink-2)">cap_app_449</span></td>
+              <td>Invoice factoring</td><td class="num">$32,750</td>
+              <td><span class="pill p-ok">Ready</span></td>
+              <td><span class="pill p-kyc">Lender KYC review</span></td>
+              <td class="num">0</td><td class="sla">1d target</td>
+            </tr>
+            <tr class="rowlink" onclick="toast('Mockup: only cap_app_456 is clickable in this demo.')">
+              <td><b>TransCaribe Logística Ltda.</b><br><span class="num" style="font-size:11px;color:var(--ink-2)">cap_app_441</span></td>
+              <td>Working capital</td><td class="num">$45,000</td>
+              <td><span class="pill p-warn">Conditionally ready</span></td>
+              <td><span class="pill p-info">Additional info required</span></td>
+              <td class="num">4</td><td class="sla late">3d over</td>
+            </tr>
+            <tr class="rowlink" onclick="toast('Mockup: only cap_app_456 is clickable in this demo.')">
+              <td><b>Vivero La Fortuna S.A.</b><br><span class="num" style="font-size:11px;color:var(--ink-2)">cap_app_437</span></td>
+              <td>Invoice factoring</td><td class="num">$7,900</td>
+              <td><span class="pill p-ok">Ready</span></td>
+              <td><span class="pill p-ready">Ready for lender review</span></td>
+              <td class="num">0</td><td class="sla">2d target</td>
+            </tr>
+          </tbody>
+        </table></div>
+        <div class="footer-note">SLA targets are the proposed service levels from the platform agreement — contractual defaults, not regulatory deadlines. Queue order is never affected by any capitalYA fee status.</div>
+      </div>
+    </section>
+
+    <!-- ========== D2 APPLICATION + RAP ========== -->
+    <section class="screen" id="scr-d2">
+      <h1>Distribuidora Monteverde S.A.</h1>
+      <div class="crumb">SCR-D2 · cap_app_456 · Invoice factoring · requested <span class="num">$18,400</span> USD · state: lender_underwriting</div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>Capital Readiness Assessment — crp_asmt_123</h3>
+          <div class="banner limit"><span>⚠</span><span><b>The Capital Readiness Score measures how prepared this business is for capital review.</b> It is not a credit score, a probability of default, a loan approval, an investment recommendation, or a guarantee of funding. Capital providers must perform their own independent underwriting, diligence, and approval process.</span></div>
+          <div class="score-wrap">
+            <div>
+              <div class="score-big">78</div>
+              <div class="score-band">CONDITIONALLY READY</div>
+            </div>
+            <div class="conf">Evidence confidence <b>0.83</b> — reported separately,<br>never blended into the score.<br>Methodology <code>CRP-2026.1</code> · expires <span class="num">19 Jan 2027</span></div>
+          </div>
+          <div class="dim"><span>Financial reporting</span><div class="bar"><i style="width:82%"></i></div><span class="num">82</span><span class="conf-cell">conf 0.91</span></div>
+          <div class="dim"><span>Debt capacity</span><div class="bar"><i style="width:68%"></i></div><span class="num">68</span><span class="conf-cell">conf 0.76</span></div>
+          <div class="dim"><span>Governance</span><div class="bar"><i style="width:74%"></i></div><span class="num">74</span><span class="conf-cell">conf 0.88</span></div>
+          <div class="dim"><span>Operations</span><div class="bar"><i style="width:81%"></i></div><span class="num">81</span><span class="conf-cell">conf 0.85</span></div>
+          <div style="margin-top:10px">
+            <div class="flag-row"><span class="pill p-flag">S2 FLAG</span> Customer concentration — top debtor is 61% of receivables</div>
+            <div class="flag-row"><span class="pill p-warn">REMEDIATION</span> Provide updated accounts-receivable aging</div>
+            <div class="flag-row"><span class="pill p-warn">REMEDIATION</span> Resolve beneficial-owner address discrepancy</div>
+          </div>
+          <div class="footer-note">Human-approved by CRP senior reviewer · signed package verified ✓ · consent scope: share_with_lender:FDV</div>
+        </div>
+
+        <div>
+          <div class="card">
+            <h3>capitalYA completeness validation</h3>
+            <dl class="kv">
+              <dt>Signature / schema</dt><dd><span class="pill p-ok">VALID</span></dd>
+              <dt>Consent scope</dt><dd><span class="pill p-ok">VALID</span></dd>
+              <dt>Checklist</dt><dd><span class="pill p-ok">COMPLETE</span> vs <code>LENDER-A-2026.3</code> (your checklist)</dd>
+              <dt>Eligibility</dt><dd><span class="pill p-neutral">ELIGIBLE FOR LENDER REVIEW</span></dd>
+              <dt>Credit decision</dt><dd><code>null</code> — made only by Financiera del Valle</dd>
+            </dl>
+          </div>
+          <div class="card">
+            <h3>State history</h3>
+            <ul class="timeline" id="timeline">
+              <li><span class="t">18 Sep 14:02</span><span>submitted_to_capitalya <span class="who">— borrower</span></span></li>
+              <li><span class="t">19 Sep 18:00</span><span>crp assessment approved <span class="who">— CRP reviewer</span></span></li>
+              <li><span class="t">19 Sep 18:04</span><span>ready_for_lender_review <span class="who">— capitalYA (validation)</span></span></li>
+              <li><span class="t">21 Sep 09:30</span><span>lender_kyc_review <span class="who">— P. Araya (lender)</span></span></li>
+              <li><span class="t">21 Sep 16:45</span><span>lender_underwriting <span class="who">— M. Jiménez (lender)</span></span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== D4 KYC ========== -->
+    <section class="screen" id="scr-d4">
+      <h1>KYC review — Distribuidora Monteverde S.A.</h1>
+      <div class="crumb">SCR-D4 · cap_app_456 · role required: lender_kyc_officer / lender_admin</div>
+      <div class="banner lender">◆ KYC of record is performed by Financiera del Valle S.A. Results below from capitalYA are <u>preliminary and non-relied</u> — re-verify against your own legal and internal requirements.</div>
+      <div class="grid2">
+        <div class="card">
+          <h3>capitalYA pre-screen (preliminary)</h3>
+          <dl class="kv">
+            <dt>Basis</dt><dd><code>preliminary_non_relied</code></dd>
+            <dt>Provider</dt><dd>IDVerify LATAM · <span class="num">19 Sep 18:00</span></dd>
+            <dt>Identity match</dt><dd><span class="pill p-ok">CONFIRMED</span> <span style="color:var(--ink-2);font-size:11px">re-verify</span></dd>
+            <dt>Beneficial ownership</dt><dd><span class="pill p-ok">COMPLETE</span> — 2 UBOs identified</dd>
+            <dt>PEP</dt><dd><span class="pill p-ok">NO MATCH</span> <span style="color:var(--ink-2);font-size:11px">re-verify</span></dd>
+            <dt>Sanctions</dt><dd><span class="pill p-ok">NO MATCH</span> — UN · CR local · OFAC</dd>
+            <dt>Adverse media</dt><dd><span class="pill p-warn">REVIEW REQUIRED</span> — 1 article, debtor payment dispute (2024)</dd>
+            <dt>Lender re-verification</dt><dd><code>required: true</code></dd>
+          </dl>
+        </div>
+        <div class="card">
+          <h3>Your determination</h3>
+          <p style="font-size:12.5px;color:var(--ink-2);margin-top:0">The portal records your KYC outcome. It never clears a sanctions match — a potential match escalates to your MLRO and is resolved in your own AML process.</p>
+          <div class="lender-only btnrow">
+            <button class="btn lenderact" onclick="toast('KYC marked satisfied — recorded by P. Araya (lender_kyc_officer), 22 Sep 09:14. Audit event written.')">Mark KYC satisfied</button>
+            <button class="btn" onclick="toast('Structured KYC information request sent to borrower via capitalYA.')">Request more KYC info</button>
+            <button class="btn danger" onclick="toast('Escalated to MLRO channel. No customer notification sent (no tipping-off).')">Escalate to MLRO</button>
+          </div>
+          <div class="role-note capitalya-only hidden-by-role">You are viewing as <b>capitalYA — Ops</b>. KYC determinations belong to the lender; no action controls exist for this role — they are not rendered, not merely disabled.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== D5 UNDERWRITING ========== -->
+    <section class="screen" id="scr-d5">
+      <h1>Underwriting — Distribuidora Monteverde S.A.</h1>
+      <div class="crumb">SCR-D5 · cap_app_456 · role required: lender_underwriter</div>
+      <div class="banner lender">◆ Credit decisions on this screen are made and recorded by Financiera del Valle S.A. as the sole lender of record.</div>
+      <div class="grid2">
+        <div class="card">
+          <h3>Your intake checklist — <code>LENDER-A-2026.3</code></h3>
+          <ul class="checklist">
+            <li><span class="cond-done">✓</span> 6-month bank statements (BAC) — verified</li>
+            <li><span class="cond-done">✓</span> ATV tax filings 2024–2025</li>
+            <li><span class="cond-done">✓</span> Invoice #FE-2026-0871 — debtor: Superalmacenes del Pacífico</li>
+            <li><span class="cond-done">✓</span> Debtor payment history (18 invoices, avg 47 days)</li>
+            <li><span class="cond-open">○</span> Updated A/R aging (remediation open at CRP)</li>
+          </ul>
+          <div class="footer-note">Checklist content is defined by the lender in SCR-D11 and versioned. capitalYA validates completeness against it; it does not author credit criteria.</div>
+        </div>
+        <div class="card">
+          <h3>Underwriter notes (lender-private)</h3>
+          <div class="field"><textarea placeholder="Notes are visible to Financiera del Valle staff only — never shared with the borrower, capitalYA, or CRP scoring.">Debtor concentration is real but debtor is investment-grade retail chain; 47-day average payment against 60-day terms. Inclined to conditional approval pending A/R aging.</textarea></div>
+          <div class="lender-only btnrow">
+            <button class="btn" onclick="toast('Request sent: “Updated A/R aging (≤30 days old)”. State → additional_information_required. The file will show a what-changed diff when it returns.')">Request additional information</button>
+            <button class="btn lenderact" onclick="go('d6',document.querySelector('[data-scr=d6]'))">Proceed to decision →</button>
+          </div>
+          <div class="role-note capitalya-only hidden-by-role">Viewing as <b>capitalYA — Ops</b>: underwriting actions are lender-only and are not rendered for this role.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== D6 DECISION ========== -->
+    <section class="screen" id="scr-d6">
+      <h1>Record decision — Distribuidora Monteverde S.A.</h1>
+      <div class="crumb">SCR-D6 · cap_app_456 · role required: lender_underwriter / lender_admin</div>
+      <div class="banner lender">◆ This decision is made by Financiera del Valle S.A. — not by capitalYA, and not by the CRP readiness score.</div>
+      <div class="card lender-only">
+        <h3>Decision</h3>
+        <div class="field">
+          <label for="dec">Your determination</label>
+          <select id="dec">
+            <option value="cond">Conditionally approved — conditions required</option>
+            <option value="final">Final approved</option>
+            <option value="decl">Declined — reason required</option>
+          </select>
+        </div>
+        <div class="field"><label for="decnote">Reason / conditions (borrower-facing adverse notice text if declined)</label>
+          <textarea id="decnote">Condition: provide updated A/R aging dated within 30 days before contract issuance.</textarea></div>
+        <div class="btnrow"><button class="btn lenderact" onclick="openDecision()">Record decision…</button></div>
+      </div>
+      <div class="role-note capitalya-only hidden-by-role" style="margin-bottom:16px">Viewing as <b>capitalYA — Ops</b>. The decision panel does not exist for this role — capitalYA has no code path to record, alter, or suggest a credit decision. Switch the role selector (top right) to <i>Lender — Underwriter</i> to see the lender's view.</div>
+      <div class="card">
+        <h3>What the borrower will receive if declined</h3>
+        <p style="font-size:13px;margin:0">Notice that a readiness score was used · key adverse factors · access to their submitted data · correction and reassessment path · human-review confirmation — the score-rights disclosure set, delivered in Spanish.</p>
+      </div>
+    </section>
+
+    <!-- ========== D7 TERMS ========== -->
+    <section class="screen" id="scr-d7">
+      <h1>Offer &amp; terms — Distribuidora Monteverde S.A.</h1>
+      <div class="crumb">SCR-D7 · cap_app_456 · role required: lender_underwriter / lender_admin</div>
+      <div class="banner lender">◆ All terms are set by Financiera del Valle S.A. capitalYA fees display read-only and are never deducted from proceeds.</div>
+      <div class="grid2">
+        <div class="card lender-only">
+          <h3>Terms (lender-set)</h3>
+          <div class="field"><label for="amt">Advance amount (USD)</label><input id="amt" class="num" type="number" value="17480" oninput="capCheck()"></div>
+          <div class="field"><label for="rate">Effective annual rate (%)</label><input id="rate" class="num" type="number" step="0.1" value="14.2" oninput="capCheck()"></div>
+          <div class="field"><label for="ofee">Lender origination fee (%)</label><input id="ofee" class="num" type="number" step="0.1" value="2.0" oninput="capCheck()"></div>
+          <div id="cap" class="capcheck pass"></div>
+          <div class="btnrow"><button id="issueBtn" class="btn lenderact" onclick="toast('Contract issued by Financiera del Valle. State → contract_issued. Borrower acceptance flow begins.')">Issue contract</button></div>
+        </div>
+        <div>
+          <div class="card">
+            <h3>All-in cost composition</h3>
+            <div class="tbl-wrap"><table>
+              <tbody>
+                <tr><td>Lender effective interest</td><td class="num" id="c-int">14.2%</td><td>lender revenue</td></tr>
+                <tr><td>Lender origination fee (annualized)</td><td class="num" id="c-ofee">2.0%</td><td>lender revenue</td></tr>
+                <tr><td>capitalYA success fee (annualized)</td><td class="num">1.1%</td><td>billed separately — <b>not</b> from proceeds</td></tr>
+                <tr><td>CRP assessment fee (flat, annualized eq.)</td><td class="num">0.9%</td><td>billed separately — <b>not</b> from proceeds</td></tr>
+                <tr><th>All-in tested against cap</th><th class="num" id="c-total">18.2%</th><th>BCCR cap (USD · 2026-H2): <span class="num">21.3%*</span></th></tr>
+              </tbody>
+            </table></div>
+            <div class="footer-note">*Illustrative cap figure for the mockup. Production reads the BCCR-published cap for the contract's currency and semester. Fees cannot be used to evade the cap — the all-in total is what is tested.</div>
+          </div>
+          <div class="role-note capitalya-only hidden-by-role">Viewing as <b>capitalYA — Ops</b>: terms entry is lender-only. This composition panel is what capitalYA roles can see — status, never controls.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== D9 DISBURSEMENT ========== -->
+    <section class="screen" id="scr-d9">
+      <h1>Disbursement confirmation</h1>
+      <div class="crumb">SCR-D9 · loan cap_loan_456 · role required: lender_admin / lender_servicer</div>
+      <div class="banner lender">◆ Disbursement is executed by Financiera del Valle S.A. through its own accounts. capitalYA records the event for workflow purposes only — no payment can be initiated from this portal.</div>
+      <div class="card lender-only" style="max-width:560px">
+        <h3>Record disbursement</h3>
+        <div class="field"><label for="dref">Lender transaction ID (idempotency key)</label><input id="dref" class="num" value="FDV-2026-09-22-00317"></div>
+        <div class="field"><label>Amount</label><input class="num" value="$17,480.00 USD" readonly></div>
+        <div class="field"><label>From account</label><input class="num" value="FDV ····· 4471 (operating)" readonly></div>
+        <div class="btnrow"><button class="btn lenderact" onclick="disburse()">Record disbursement</button></div>
+        <div class="footer-note">Submitting the same transaction ID twice is a no-op — try it.</div>
+      </div>
+      <div class="role-note capitalya-only hidden-by-role">Viewing as <b>capitalYA — Ops</b>: no disbursement controls exist for this role.</div>
+    </section>
+
+    <!-- ========== D10 SERVICING ========== -->
+    <section class="screen" id="scr-d10">
+      <h1>Servicing &amp; reconciliation</h1>
+      <div class="crumb">SCR-D10 · role required: lender_servicer · payment data as reported by Financiera del Valle — the lender's ledger is the system of record</div>
+      <div class="grid2">
+        <div class="card lender-only">
+          <h3>Daily reconciliation import</h3>
+          <div class="field"><label for="recon">File</label><input id="recon" class="num" value="fdv_recon_2026-09-22.csv" readonly></div>
+          <div class="btnrow"><button class="btn lenderact" onclick="recon()">Validate &amp; import</button></div>
+          <div class="footer-note">Rows carry <code>lender_txn_id</code> idempotency keys — re-importing the same file changes nothing. Failed rows quarantine with reasons; partial imports roll back. Reconciliation data never reaches CRP scoring.</div>
+        </div>
+        <div class="card">
+          <h3>Active loans (as reported by lender)</h3>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>Loan</th><th>Borrower</th><th>Outstanding</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td class="num">cap_loan_431</td><td>Café Turrialba Export</td><td class="num">$29,510</td><td><span class="pill p-active">CURRENT</span></td></tr>
+              <tr><td class="num">cap_loan_418</td><td>Vivero La Fortuna</td><td class="num">$4,120</td><td><span class="pill p-active">CURRENT</span></td></tr>
+              <tr><td class="num">cap_loan_402</td><td>Ferretería El Roble</td><td class="num">$11,830</td><td><span class="pill p-delq">DELINQUENT · 9d</span></td></tr>
+            </tbody>
+          </table></div>
+          <div class="lender-only btnrow">
+            <button class="btn" onclick="toast('Delinquency recorded for cap_loan_402 by R. Solano (lender). Reason + two-step confirm captured in audit log.')">Record delinquency…</button>
+            <button class="btn" onclick="toast('Restructure recorded — a lender determination, logged with actor and reason.')">Record restructure…</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== ABOUT ========== -->
+    <section class="screen" id="scr-about">
+      <h1>What this mockup demonstrates</h1>
+      <div class="crumb">Companion to program doc 19 (SCR-D series) · illustrative fake data only</div>
+      <div class="card">
+        <h3>The boundary, made visible</h3>
+        <p style="font-size:13.5px">Use the <b>role selector</b> (top right) and switch between <i>Lender — Underwriter</i> and <i>capitalYA — Ops</i>. Every decision, KYC, terms, disbursement, and servicing control disappears for capitalYA roles — they are not rendered at all, not merely disabled. That is the product expression of the program's regulatory position:</p>
+        <ul style="font-size:13.5px">
+          <li>Only the licensed lender records credit decisions, terms, disbursements, and servicing states.</li>
+          <li>The CRP readiness score always appears behind its limitation statement, with evidence confidence as a separate axis and no recommended amount or rate anywhere.</li>
+          <li>capitalYA's own output is a completeness validation with <code>final_credit_decision: null</code>.</li>
+          <li>No payment can be initiated here; the lender's ledger is the system of record and reconciliation is idempotent.</li>
+          <li>Sanctions matches escalate to the lender's MLRO — the portal offers no “clear match” control to anyone.</li>
+        </ul>
+        <div class="footer-note">capitalYA — Lender Portal mockup · all companies, people, numbers, and the cap figure are fictitious · ES-primary production UI pending counsel-approved operative text</div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<dialog id="decDialog">
+  <h3>Confirm lender decision</h3>
+  <p style="font-size:13px" id="decSummary"></p>
+  <div class="banner lender" style="margin:10px 0">◆ This decision is made by <b>Financiera del Valle S.A.</b>, not capitalYA. It will be recorded with your identity, role, timestamp, and reason in the immutable audit log.</div>
+  <div class="btnrow">
+    <button class="btn" onclick="document.getElementById('decDialog').close()">Cancel</button>
+    <button class="btn lenderact" onclick="confirmDecision()">Confirm — record as Financiera del Valle</button>
+  </div>
+</dialog>
+
+<script>
+  var disbursed = {};
+  var reconDone = false;
+
+  function go(id, btn){
+    document.querySelectorAll('section.screen').forEach(function(s){s.classList.remove('on')});
+    document.getElementById('scr-'+id).classList.add('on');
+    document.querySelectorAll('.nav button').forEach(function(b){b.classList.remove('active')});
+    if(btn) btn.classList.add('active');
+    window.scrollTo(0,0);
+  }
+
+  function setRole(r){
+    var isLender = r.indexOf('lender') === 0;
+    document.querySelectorAll('.lender-only').forEach(function(el){
+      el.classList.toggle('hidden-by-role', !isLender);
+    });
+    document.querySelectorAll('.capitalya-only').forEach(function(el){
+      el.classList.toggle('hidden-by-role', isLender);
+    });
+    toast(isLender ? 'Viewing as a lender role — decision controls rendered.'
+                   : 'Viewing as capitalYA — decision controls are not rendered for this role.');
+  }
+
+  function toast(msg){
+    var t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(t._h); t._h = setTimeout(function(){t.classList.remove('show')}, 3800);
+  }
+
+  function openDecision(){
+    var v = document.getElementById('dec');
+    document.getElementById('decSummary').textContent =
+      'Decision: ' + v.options[v.selectedIndex].text + ' — cap_app_456, Distribuidora Monteverde S.A.';
+    document.getElementById('decDialog').showModal();
+  }
+  function confirmDecision(){
+    document.getElementById('decDialog').close();
+    var v = document.getElementById('dec').value;
+    var state = v==='cond' ? 'conditionally_approved' : v==='final' ? 'final_approved' : 'declined';
+    toast('Recorded: ' + state + ' — by M. Jiménez (lender_underwriter), 22 Sep 09:18. Event decision.recorded emitted.');
+    var tl = document.getElementById('timeline');
+    if(tl){
+      var li = document.createElement('li');
+      li.innerHTML = '<span class="t">22 Sep 09:18</span><span>' + state + ' <span class="who">— M. Jiménez (lender)</span></span>';
+      tl.appendChild(li);
+    }
+  }
+
+  function capCheck(){
+    var rate = parseFloat(document.getElementById('rate').value)||0;
+    var ofee = parseFloat(document.getElementById('ofee').value)||0;
+    var platform = 1.1 + 0.9; // capitalYA success + CRP assessment, annualized equivalents (illustrative)
+    var total = rate + ofee + platform;
+    var cap = 21.3;
+    document.getElementById('c-int').textContent  = rate.toFixed(1)+'%';
+    document.getElementById('c-ofee').textContent = ofee.toFixed(1)+'%';
+    document.getElementById('c-total').textContent= total.toFixed(1)+'%';
+    var el = document.getElementById('cap');
+    var btn = document.getElementById('issueBtn');
+    if(total <= cap){
+      el.className='capcheck pass';
+      el.innerHTML='✓ All-in cost <span class="num">'+total.toFixed(1)+'%</span> is within the applicable BCCR cap (<span class="num">'+cap.toFixed(1)+'%</span>, USD · 2026-H2, illustrative). Contract may be issued.';
+      btn.disabled=false;
+    }else{
+      el.className='capcheck fail';
+      el.innerHTML='✕ All-in cost <span class="num">'+total.toFixed(1)+'%</span> exceeds the applicable cap (<span class="num">'+cap.toFixed(1)+'%</span>). Issuance is blocked — fees and interest are tested together; fees cannot be used to evade the cap.';
+      btn.disabled=true;
+    }
+  }
+
+  function disburse(){
+    var key = document.getElementById('dref').value.trim();
+    if(disbursed[key]){
+      toast('No-op: transaction '+key+' was already recorded. Duplicate submissions do not create a second event (idempotency key).');
+    }else{
+      disbursed[key]=true;
+      toast('Disbursement recorded — '+key+', by R. Solano (lender). State → disbursed → active.');
+    }
+  }
+
+  function recon(){
+    if(reconDone){
+      toast('No-op: fdv_recon_2026-09-22.csv already imported — 0 rows changed on re-run (per-row idempotency on lender_txn_id).');
+    }else{
+      reconDone=true;
+      toast('Imported: 42 rows applied, 1 row quarantined (unknown loan reference — reason logged). Totals validated before commit.');
+    }
+  }
+
+  capCheck();
+</script>
