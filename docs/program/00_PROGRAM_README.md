@@ -51,7 +51,7 @@ The original PRD/specs describe Horizon 2. The **Regulatory Strategy (`03`) gove
 | `18` | **Partner Commercial Schedule (Template)** | Negotiated lender-side economics — contract annex to `10`; boundary-constrained; filled at signing |
 | `19` | **Lender Portal Screen Specification** | SCR-D series (11 screens) extending the CRP screen registry — the lender decisioning portal mapped to the `06` state machine |
 | `briefs/` | Working briefs | Consistency review (PASS), counsel engagement brief, lender pitch one-pager |
-| `mockups/` | Clickable prototypes | `lender-portal-mockup.html` — interactive demo of the SCR-D core flow with the role-gated boundary made visible |
+| `mockups/` | Clickable prototypes | `lender-portal-mockup.html` (SCR-D core flow, role-gated boundary) + `borrower-intake-mockup.html` (the same application `cap_app_456` from the SME's side: intake → consent → documents → score reveal → lender decision) |
 | `sources/` | Archived founder inputs | Original PRD, Technical Specifications, and research brief — **vision context, not build specs** |
 
 **Tier-1 build set (`05`–`09`)** is the concrete MVP documentation: boundary → lender integration → data/schemas → fees → regulator engagement. Reflects the scope decisions of a **single pilot lender**, a **portal-first** surface, capitalYA holding **no funds** and making **no credit decision**.

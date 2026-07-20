@@ -1,0 +1,399 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>capitalYA — Borrower Intake Mockup</title>
+<style>
+  :root{
+    --bg:#F6F8F7; --panel:#FFFFFF; --ink:#1E2523; --ink-2:#5A6662; --line:#DCE3E0;
+    --accent:#0E6B4F; --accent-soft:#E3F0EA; --lender:#33526E; --lender-soft:#E7EDF3;
+    --ok:#2E7D4F; --warn:#A96A0E; --warn-soft:#F7EDDC; --crit:#A8332E; --crit-soft:#F6E4E3;
+    --chip:#EEF2F0; --shadow:0 1px 3px rgba(30,37,35,.08),0 4px 14px rgba(30,37,35,.06);
+    --mono:"SF Mono","Cascadia Code",ui-monospace,Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){:root{
+    --bg:#131715; --panel:#1B211E; --ink:#E6EBE8; --ink-2:#93A09A; --line:#2B332F;
+    --accent:#4CAF8B; --accent-soft:#1E3A30; --lender:#7FA3C4; --lender-soft:#22303D;
+    --ok:#5CB884; --warn:#D9A04B; --warn-soft:#3A2F1B; --crit:#D96C66; --crit-soft:#3D2221;
+    --chip:#242C28; --shadow:0 1px 3px rgba(0,0,0,.4);
+  }}
+  :root[data-theme="dark"]{
+    --bg:#131715; --panel:#1B211E; --ink:#E6EBE8; --ink-2:#93A09A; --line:#2B332F;
+    --accent:#4CAF8B; --accent-soft:#1E3A30; --lender:#7FA3C4; --lender-soft:#22303D;
+    --ok:#5CB884; --warn:#D9A04B; --warn-soft:#3A2F1B; --crit:#D96C66; --crit-soft:#3D2221;
+    --chip:#242C28; --shadow:0 1px 3px rgba(0,0,0,.4);
+  }
+  :root[data-theme="light"]{
+    --bg:#F6F8F7; --panel:#FFFFFF; --ink:#1E2523; --ink-2:#5A6662; --line:#DCE3E0;
+    --accent:#0E6B4F; --accent-soft:#E3F0EA; --lender:#33526E; --lender-soft:#E7EDF3;
+    --ok:#2E7D4F; --warn:#A96A0E; --warn-soft:#F7EDDC; --crit:#A8332E; --crit-soft:#F6E4E3;
+    --chip:#EEF2F0; --shadow:0 1px 3px rgba(30,37,35,.08),0 4px 14px rgba(30,37,35,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font:15px/1.55 "Segoe UI Variable Text","Seravek","Avenir Next",system-ui,sans-serif}
+  .top{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+  .brand{font-weight:700;font-size:17px}
+  .brand .ya{color:var(--accent)}
+  .mock-tag{font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:var(--warn-soft);color:var(--warn);border-radius:3px;padding:2px 6px;font-weight:700}
+  .spacer{flex:1}
+  .who{font-size:12.5px;color:var(--ink-2)}
+  .wrap{max-width:720px;margin:0 auto;padding:26px 18px 80px}
+  /* stepper */
+  .stepper{display:flex;gap:4px;margin-bottom:26px;overflow-x:auto;padding-bottom:4px}
+  .step{flex:1;min-width:86px;border:0;background:none;font:inherit;cursor:pointer;text-align:left;padding:0}
+  .step .rail{height:4px;border-radius:2px;background:var(--chip);margin-bottom:6px}
+  .step.done .rail{background:var(--accent)}
+  .step.now .rail{background:var(--accent)}
+  .step .lbl{font-size:11px;color:var(--ink-2);font-weight:600;letter-spacing:.02em}
+  .step.now .lbl{color:var(--accent)}
+  .step[disabled]{cursor:not-allowed;opacity:.55}
+  .step:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+  h1{font-size:24px;margin:0 0 6px;text-wrap:balance;line-height:1.25}
+  h2{font-size:15px;margin:22px 0 8px}
+  .lede{color:var(--ink-2);font-size:15px;margin:0 0 18px;max-width:60ch}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:20px;margin-bottom:16px}
+  .card h3{margin:0 0 10px;font-size:14px}
+  .banner{display:flex;gap:10px;align-items:flex-start;border-radius:10px;padding:12px 15px;font-size:13px;margin:0 0 16px}
+  .banner.limit{background:var(--warn-soft);border:1px solid var(--warn)}
+  .banner.lender{background:var(--lender-soft);border:1px solid var(--lender);color:var(--lender);font-weight:600}
+  .banner.ok{background:var(--accent-soft);border:1px solid var(--accent)}
+  .notlender{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+  @media(max-width:600px){.notlender{grid-template-columns:1fr}}
+  .notlender .col{border:1px solid var(--line);border-radius:10px;padding:14px}
+  .notlender h4{margin:0 0 8px;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+  .notlender .is h4{color:var(--accent)}
+  .notlender .isnt h4{color:var(--crit)}
+  .notlender ul{margin:0;padding-left:18px;font-size:13px}
+  .notlender li{margin-bottom:4px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:12px;font-weight:600;color:var(--ink-2);margin-bottom:5px}
+  .field input,.field select,.field textarea{font:inherit;color:var(--ink);width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+  .field textarea{min-height:70px;resize:vertical}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:600px){.row2{grid-template-columns:1fr}}
+  .btn{font:inherit;font-weight:600;border-radius:8px;padding:11px 18px;cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+  .btn:hover{background:var(--chip)}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn.primary:hover{filter:brightness(1.08)}
+  .btn[disabled]{opacity:.45;cursor:not-allowed}
+  .btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .consent{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:13px 15px;margin-bottom:10px}
+  .consent input{margin-top:3px;width:16px;height:16px;accent-color:var(--accent)}
+  .consent .t{font-size:13.5px}
+  .consent .t b{display:block;margin-bottom:2px}
+  .consent .req{font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--accent)}
+  .consent .opt{font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--ink-2)}
+  .doc{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:10px;padding:12px 15px;margin-bottom:10px}
+  .doc .name{flex:1;font-size:13.5px}
+  .doc .name small{display:block;color:var(--ink-2);font-size:11.5px}
+  .pill{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.04em;border-radius:999px;padding:3px 10px;white-space:nowrap}
+  .p-ok{background:var(--accent-soft);color:var(--ok)}
+  .p-wait{background:var(--chip);color:var(--ink-2)}
+  .p-warn{background:var(--warn-soft);color:var(--warn)}
+  .p-crit{background:var(--crit-soft);color:var(--crit)}
+  .p-lender{background:var(--lender-soft);color:var(--lender)}
+  .score-reveal{text-align:center;padding:8px 0 2px}
+  .score-big{font-size:56px;font-weight:800;font-family:var(--mono);line-height:1;color:var(--accent)}
+  .score-band{font-size:13px;font-weight:700;color:var(--warn);letter-spacing:.05em;margin-top:4px}
+  .conf{font-size:12.5px;color:var(--ink-2);margin-top:8px}
+  .conf b{font-family:var(--mono);color:var(--ink)}
+  .dim{display:grid;grid-template-columns:1fr 90px 42px;gap:10px;align-items:center;font-size:13px;padding:6px 0}
+  .bar{height:8px;border-radius:4px;background:var(--chip);overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--accent)}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .timeline{list-style:none;margin:0;padding:0;font-size:13.5px}
+  .timeline li{display:flex;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
+  .timeline li:last-child{border-bottom:0}
+  .timeline .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);margin-top:5px;flex:none}
+  .timeline li.pending .dot{background:var(--chip);border:1px solid var(--line)}
+  .timeline li.lender .dot{background:var(--lender)}
+  .timeline .t{font-family:var(--mono);font-size:11px;color:var(--ink-2)}
+  .fee-table{width:100%;border-collapse:collapse;font-size:13px}
+  .fee-table td{padding:8px 6px;border-bottom:1px solid var(--line)}
+  .fee-table tr:last-child td{border-bottom:0}
+  .toast{position:fixed;bottom:18px;right:18px;background:var(--ink);color:var(--bg);border-radius:8px;padding:10px 16px;font-size:13px;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);transition:.25s;z-index:90;max-width:380px}
+  .toast.show{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){.toast{transition:none}}
+  .footer-note{font-size:11.5px;color:var(--ink-2);margin-top:18px;border-top:1px solid var(--line);padding-top:10px}
+  section.pane{display:none}
+  section.pane.on{display:block}
+  code{font-family:var(--mono);font-size:12px;background:var(--chip);border-radius:4px;padding:1px 5px}
+  .rights{font-size:13px;padding-left:18px;margin:8px 0 0}
+  .rights li{margin-bottom:5px}
+</style>
+
+<div class="top">
+  <div class="brand">capital<span class="ya">YA</span></div>
+  <span class="mock-tag">Mockup · fake data · ES-primary in production</span>
+  <div class="spacer"></div>
+  <div class="who">Distribuidora Monteverde S.A. · <span class="num">cap_app_456</span></div>
+</div>
+
+<div class="wrap">
+  <!-- stepper -->
+  <div class="stepper" id="stepper">
+    <button class="step now" data-p="p1" onclick="go('p1')"><div class="rail"></div><span class="lbl">1 · Start</span></button>
+    <button class="step" data-p="p2" onclick="go('p2')"><div class="rail"></div><span class="lbl">2 · Your business</span></button>
+    <button class="step" data-p="p3" onclick="go('p3')"><div class="rail"></div><span class="lbl">3 · Consent</span></button>
+    <button class="step" data-p="p4" onclick="go('p4')"><div class="rail"></div><span class="lbl">4 · Documents</span></button>
+    <button class="step" data-p="p5" onclick="go('p5')"><div class="rail"></div><span class="lbl">5 · Assessment</span></button>
+    <button class="step" data-p="p6" onclick="go('p6')"><div class="rail"></div><span class="lbl">6 · Your lender</span></button>
+  </div>
+
+  <!-- ========== P1 START ========== -->
+  <section class="pane on" id="p1">
+    <h1>Get your business ready for capital — and connected to a licensed lender.</h1>
+    <p class="lede">capitalYA organizes your documents, assesses how prepared your business is, and presents your complete file to <b>Financiera del Valle S.A.</b>, a supervised Costa Rican lender who makes its own independent decision.</p>
+
+    <div class="notlender">
+      <div class="col is">
+        <h4>What capitalYA does</h4>
+        <ul>
+          <li>Collects and organizes your documents once</li>
+          <li>Assesses your capital readiness (CRP)</li>
+          <li>Shows you exactly what to fix to improve</li>
+          <li>Presents your file to the lender, with your consent</li>
+          <li>Keeps you informed at every step</li>
+        </ul>
+      </div>
+      <div class="col isnt">
+        <h4>What capitalYA is not</h4>
+        <ul>
+          <li><b>Not a lender</b> — Financiera del Valle decides and lends</li>
+          <li>Never approves or declines your credit</li>
+          <li>Never sets your interest rate or terms</li>
+          <li>Never touches the loan money — funds move only through the lender's accounts</li>
+          <li>Never guarantees financing</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>What it costs — fixed and transparent</h3>
+      <table class="fee-table">
+        <tr><td><b>CRP readiness assessment</b><br><span style="color:var(--ink-2);font-size:12px">Document analysis, readiness score, remediation plan</span></td><td class="num" style="text-align:right">$[2,500–5,000] flat</td></tr>
+        <tr><td>Charged only for the assessment — <b>not contingent</b> on getting financed. Refund rules apply if you withdraw before we start.</td><td></td></tr>
+        <tr><td>Any fee is billed separately and <b>never deducted from your loan</b>. The lender's own interest and fees are disclosed to you by the lender before you sign anything.</td><td></td></tr>
+      </table>
+    </div>
+
+    <div class="btnrow"><button class="btn primary" onclick="advance('p2')">Start my application</button></div>
+    <div class="footer-note">Production interface is Spanish-first with counsel-approved legal text. All companies and figures in this mockup are fictitious.</div>
+  </section>
+
+  <!-- ========== P2 BUSINESS ========== -->
+  <section class="pane" id="p2">
+    <h1>Tell us about your business</h1>
+    <p class="lede">This creates your file. Everything you enter is verified against evidence later — accurate answers now save you time.</p>
+    <div class="card">
+      <div class="row2">
+        <div class="field"><label for="bn">Legal name</label><input id="bn" value="Distribuidora Monteverde S.A."></div>
+        <div class="field"><label for="ced">Cédula jurídica</label><input id="ced" class="num" value="3-101-745xxx"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="sector">Sector</label><select id="sector"><option>Wholesale &amp; distribution</option><option>Agro-export</option><option>Services</option><option>Manufacturing</option></select></div>
+        <div class="field"><label for="years">Years operating</label><input id="years" class="num" value="9"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="prod">What do you need?</label><select id="prod"><option>Invoice factoring — advance on an unpaid invoice</option><option>Working capital loan</option></select></div>
+        <div class="field"><label for="amt">Amount (USD)</label><input id="amt" class="num" value="18,400"></div>
+      </div>
+      <div class="field"><label for="purpose">Purpose</label><textarea id="purpose">Bridge 90-day payment terms on invoice FE-2026-0871 to Superalmacenes del Pacífico; cover supplier payments and payroll for the current cycle.</textarea></div>
+      <div class="field"><label for="ubo">Owners with 15%+ (beneficial owners)</label><input id="ubo" value="L. Vargas Mora (60%) · A. Chacón Rojas (40%)"></div>
+    </div>
+    <div class="btnrow">
+      <button class="btn" onclick="go('p1')">Back</button>
+      <button class="btn primary" onclick="advance('p3')">Continue to consent</button>
+    </div>
+  </section>
+
+  <!-- ========== P3 CONSENT ========== -->
+  <section class="pane" id="p3">
+    <h1>Your data, your authorization</h1>
+    <p class="lede">Costa Rican law (Ley 8968) requires your express consent before we process or share your information. Each authorization below is separate — and you can withdraw it at any time.</p>
+
+    <div class="card">
+      <div class="consent"><input type="checkbox" id="c1" onchange="consentGate()">
+        <div class="t"><b>Readiness assessment <span class="req">REQUIRED</span></b>
+        capitalYA and CRP may process my business information and documents to produce a capital-readiness assessment. Controller identity, purpose, recipients, my access/correction/deletion rights, and the consequences of refusal are described in the privacy notice.</div></div>
+      <div class="consent"><input type="checkbox" id="c2" onchange="consentGate()">
+        <div class="t"><b>International processing <span class="req">REQUIRED</span></b>
+        I expressly authorize processing and storage of my data on secure cloud infrastructure in the United States, encrypted in transit and at rest, under the controller–processor terms in the privacy notice. Recipient categories and countries are identified there.</div></div>
+      <div class="consent"><input type="checkbox" id="c3" onchange="consentGate()">
+        <div class="t"><b>Share my file with Financiera del Valle S.A. <span class="req">REQUIRED FOR LENDING</span></b>
+        When my assessment is complete, capitalYA may share my application, documents, and readiness report with Financiera del Valle S.A. — scope <code>share_with_lender:FDV</code> — so the lender can perform its own independent underwriting.</div></div>
+      <div class="consent"><input type="checkbox" id="c4">
+        <div class="t"><b>Product updates <span class="opt">OPTIONAL</span></b>
+        capitalYA may contact me about relevant services. Declining this has no effect on my application or my assessment.</div></div>
+      <div class="footer-note">No data is shared with any lender until you check the sharing authorization. Your consent record is timestamped and scoped; withdrawal revokes active document access. Nothing you provide is ever written to a public blockchain.</div>
+    </div>
+    <div class="btnrow">
+      <button class="btn" onclick="go('p2')">Back</button>
+      <button class="btn primary" id="consentBtn" disabled onclick="advance('p4')">I consent — continue</button>
+    </div>
+  </section>
+
+  <!-- ========== P4 DOCUMENTS ========== -->
+  <section class="pane" id="p4">
+    <h1>Your evidence</h1>
+    <p class="lede">Your readiness score is built on evidence, not claims. Upload these once — capitalYA organizes them for both the assessment and the lender.</p>
+    <div class="card" id="docs">
+      <div class="doc"><div class="name">Bank statements — last 6 months<small>BAC San José · PDF</small></div><span class="pill p-wait" data-d="1">UPLOAD</span></div>
+      <div class="doc"><div class="name">ATV tax filings 2024–2025<small>Declaración D-101</small></div><span class="pill p-wait" data-d="2">UPLOAD</span></div>
+      <div class="doc"><div class="name">Invoice FE-2026-0871<small>Debtor: Superalmacenes del Pacífico · $18,400 · due in 90 days</small></div><span class="pill p-wait" data-d="3">UPLOAD</span></div>
+      <div class="doc"><div class="name">Accounts-receivable aging<small>Current within 30 days</small></div><span class="pill p-wait" data-d="4">UPLOAD</span></div>
+      <div class="doc"><div class="name">Shareholder registry &amp; UBO declaration<small>Registro de accionistas</small></div><span class="pill p-wait" data-d="5">UPLOAD</span></div>
+      <div class="btnrow"><button class="btn" onclick="uploadAll()">Simulate uploads (demo)</button></div>
+      <div class="footer-note">Documents are encrypted, access-logged, and shared only within your consent scope — via expiring links, never email. Each document is checked for integrity and freshness; questionnaire answers without evidence score lower than evidenced claims.</div>
+    </div>
+    <div class="btnrow">
+      <button class="btn" onclick="go('p3')">Back</button>
+      <button class="btn primary" id="docsBtn" disabled onclick="advance('p5')">Submit for assessment</button>
+    </div>
+  </section>
+
+  <!-- ========== P5 ASSESSMENT ========== -->
+  <section class="pane" id="p5">
+    <h1>Your readiness assessment</h1>
+    <p class="lede">Automated analysis extracts and cross-checks your evidence; a human CRP reviewer approves every assessment before it is final.</p>
+
+    <div class="card" id="asmt-wait">
+      <h3>In progress</h3>
+      <ul class="timeline">
+        <li><span class="dot"></span><div>Documents received and integrity-checked <div class="t">19 Sep 14:02</div></div></li>
+        <li><span class="dot"></span><div>Automated extraction &amp; verification (ATV registry, bank-format checks) <div class="t">19 Sep 14:20</div></div></li>
+        <li class="pending"><span class="dot"></span><div>Human review by CRP analyst — <i>every score is approved by a person</i></div></li>
+      </ul>
+      <div class="btnrow"><button class="btn primary" onclick="reveal()">Complete review (demo)</button></div>
+    </div>
+
+    <div class="card" id="asmt-result" style="display:none">
+      <div class="banner limit"><span>⚠</span><span><b>The Capital Readiness Score measures how prepared this business is for capital review.</b> It is not a credit score, a probability of default, a loan approval, an investment recommendation, or a guarantee of funding. Your lender performs its own independent underwriting and approval process.</span></div>
+      <div class="score-reveal">
+        <div class="score-big">78</div>
+        <div class="score-band">CONDITIONALLY READY</div>
+        <div class="conf">Evidence confidence <b>0.83</b> — how well-evidenced your file is, reported separately from the score · methodology <code>CRP-2026.1</code> · valid until <span class="num">19 Jan 2027</span></div>
+      </div>
+      <h2>By dimension</h2>
+      <div class="dim"><span>Financial reporting</span><div class="bar"><i style="width:82%"></i></div><span class="num">82</span></div>
+      <div class="dim"><span>Debt capacity</span><div class="bar"><i style="width:68%"></i></div><span class="num">68</span></div>
+      <div class="dim"><span>Governance</span><div class="bar"><i style="width:74%"></i></div><span class="num">74</span></div>
+      <div class="dim"><span>Operations</span><div class="bar"><i style="width:81%"></i></div><span class="num">81</span></div>
+      <h2>What would improve your readiness</h2>
+      <div class="doc"><div class="name">Provide an accounts-receivable aging dated within 30 days<small>Your current aging is 47 days old — a fresh one strengthens Debt capacity</small></div><span class="pill p-warn">OPEN</span></div>
+      <div class="doc"><div class="name">Resolve beneficial-owner address discrepancy<small>Registry address differs from the declaration for A. Chacón Rojas</small></div><span class="pill p-warn">OPEN</span></div>
+      <div class="card" style="margin-top:14px;background:var(--bg)">
+        <h3>Your rights over this assessment</h3>
+        <ul class="rights">
+          <li>See the data behind your score, and <b>request correction</b> of any error</li>
+          <li><b>Appeal</b> to a human reviewer — no score stands without one</li>
+          <li><b>Reassess</b> after you complete remediations</li>
+          <li>Know which methodology version scored you (<code>CRP-2026.1</code>)</li>
+        </ul>
+      </div>
+      <div class="btnrow">
+        <button class="btn" onclick="toast('Correction request opened — routed to CRP review, with a human decision and a written response.')">Request a correction</button>
+        <button class="btn primary" onclick="advance('p6')">Send my file to Financiera del Valle →</button>
+      </div>
+      <div class="footer-note">Sharing happens only under your consent scope <code>share_with_lender:FDV</code>. The lender receives your readiness report as input — the credit decision is theirs alone.</div>
+    </div>
+  </section>
+
+  <!-- ========== P6 LENDER ========== -->
+  <section class="pane" id="p6">
+    <h1>With your lender</h1>
+    <p class="lede">Your file is with <b>Financiera del Valle S.A.</b> From here, every decision — approval, terms, disbursement — is made by the lender and shown to you here as they record it.</p>
+    <div class="banner lender">◆ Financiera del Valle S.A. is the lender of record. capitalYA displays the status the lender reports; it does not decide, promise, or influence the outcome.</div>
+
+    <div class="card">
+      <h3>Status</h3>
+      <ul class="timeline" id="lender-tl">
+        <li><span class="dot"></span><div>File shared with Financiera del Valle <div class="t">19 Sep 18:04 · consent scope FDV</div></div></li>
+        <li class="lender"><span class="dot"></span><div>Lender KYC review completed <div class="t">21 Sep · by the lender</div></div></li>
+        <li class="lender"><span class="dot"></span><div>Independent underwriting in progress <div class="t">21 Sep · by the lender</div></div></li>
+        <li class="lender" id="inforow"><span class="dot"></span><div><b>The lender asked for one more document:</b> updated A/R aging (≤30 days old)
+          <div class="btnrow" style="margin-top:8px"><button class="btn" onclick="provideInfo(this)">Upload updated aging (demo)</button></div></div></li>
+      </ul>
+    </div>
+
+    <div class="card" id="decision-card" style="display:none">
+      <h3>Lender decision</h3>
+      <div class="banner ok"><span>✓</span><span><b>Financiera del Valle S.A. has conditionally approved your application.</b> Condition: A/R aging received and verified. The lender will now issue your contract with its full terms — amount, interest rate, total cost, schedule, and your prepayment rights — in Spanish, before you sign.</span></div>
+      <dl style="font-size:13.5px;margin:0" class="kv">
+        <div style="display:flex;gap:10px;padding:4px 0"><dt style="color:var(--ink-2);min-width:160px">Decided by</dt><dd style="margin:0">M. Jiménez, Financiera del Valle (underwriter of record)</dd></div>
+        <div style="display:flex;gap:10px;padding:4px 0"><dt style="color:var(--ink-2);min-width:160px">Next step</dt><dd style="margin:0">Contract issued by the lender → you review and accept → funds disbursed <b>from the lender's account to yours</b></dd></div>
+        <div style="display:flex;gap:10px;padding:4px 0"><dt style="color:var(--ink-2);min-width:160px">If declined instead</dt><dd style="margin:0">You would receive the key factors, access to your data, a correction path, and the right to reassessment — in writing</dd></div>
+      </dl>
+    </div>
+    <div class="footer-note">Payment status after disbursement is displayed as reported by the lender — the lender's ledger is the legal record. Complaints route to the right owner: credit decisions to the lender, score disputes to CRP, platform issues to capitalYA.</div>
+  </section>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+  var unlocked = {p1:true,p2:false,p3:false,p4:false,p5:false,p6:false};
+  var order = ['p1','p2','p3','p4','p5','p6'];
+
+  function paint(){
+    order.forEach(function(id){
+      var btn = document.querySelector('.step[data-p='+id+']');
+      btn.disabled = !unlocked[id];
+      btn.classList.remove('now','done');
+      if(document.getElementById(id).classList.contains('on')) btn.classList.add('now');
+      else if(unlocked[id]) btn.classList.add('done');
+    });
+  }
+  function go(id){
+    if(!unlocked[id]) return;
+    document.querySelectorAll('section.pane').forEach(function(s){s.classList.remove('on')});
+    document.getElementById(id).classList.add('on');
+    paint(); window.scrollTo(0,0);
+  }
+  function advance(id){ unlocked[id]=true; go(id); }
+
+  function consentGate(){
+    var ok = ['c1','c2','c3'].every(function(i){return document.getElementById(i).checked});
+    document.getElementById('consentBtn').disabled = !ok;
+  }
+
+  var upCount = 0;
+  function uploadAll(){
+    var pills = document.querySelectorAll('#docs .pill[data-d]');
+    pills.forEach(function(p,i){
+      setTimeout(function(){
+        p.textContent='VERIFIED'; p.className='pill p-ok';
+        upCount++;
+        if(upCount>=pills.length){ document.getElementById('docsBtn').disabled=false;
+          toast('All documents received, integrity-checked, and access-logged.'); }
+      }, 250*(i+1));
+    });
+  }
+
+  function reveal(){
+    document.getElementById('asmt-wait').style.display='none';
+    document.getElementById('asmt-result').style.display='block';
+    toast('Assessment approved by CRP human reviewer and signed. You can now review your results.');
+    window.scrollTo(0,0);
+  }
+
+  function provideInfo(btn){
+    btn.disabled = true; btn.textContent = 'Uploaded ✓';
+    toast('Updated A/R aging delivered to the lender. Underwriting resumes — the lender sees exactly what changed.');
+    setTimeout(function(){
+      var tl = document.getElementById('lender-tl');
+      var li = document.createElement('li'); li.className='lender';
+      li.innerHTML = '<span class="dot"></span><div>Decision recorded by the lender <div class="t">22 Sep 09:18 · Financiera del Valle</div></div>';
+      tl.appendChild(li);
+      document.getElementById('decision-card').style.display='block';
+    }, 900);
+  }
+
+  function toast(msg){
+    var t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(t._h); t._h = setTimeout(function(){t.classList.remove('show')}, 3800);
+  }
+
+  paint();
+</script>
